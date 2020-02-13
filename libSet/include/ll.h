@@ -6,10 +6,18 @@
 #define LIBSET_LL_H
 
 
-struct node_t {
+typedef struct node {
     void* data;
-    struct node_t* next;
-};
+    struct node* next;
+} node_t;
+
+
+node_t* node_create(void* ndata) {
+    node_t* new = (node_t*) malloc(sizeof(node_t));
+    new->data = ndata;
+    new->next = NULL;
+    return new;
+}
 
 
 #endif //LIBSET_LL_H

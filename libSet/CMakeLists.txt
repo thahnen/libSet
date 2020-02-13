@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(Set
-        VERSION         1.0.0
+        VERSION         1.1.0
         DESCRIPTION     "Simple shared library for (ordered) sets and their functions"
         HOMEPAGE_URL    "https://github.com/thahnen/libSet"
         LANGUAGES       C)
@@ -18,7 +18,7 @@ include_directories(./include)
 ########################################################################################################################
 add_library(${PROJECT_NAME}
         SHARED
-            src/set.c include/ll.h)
+            src/set.c include/ll.h include/type.h)
 
 set_target_properties(${PROJECT_NAME}
         PROPERTIES
@@ -32,6 +32,25 @@ target_include_directories(${PROJECT_NAME}
             $<INSTALL_INTERFACE:include>
         PRIVATE
             ${PROJECT_SOURCE_DIR}/src)
+
+
+
+########################################################################################################################
+#           FIND LIBRARY AFTER BUILD PROCESS!
+########################################################################################################################
+find_library(Set REUQIRED)
+
+
+########################################################################################################################
+#
+#           TEST LIBRARY
+#
+########################################################################################################################
+add_executable(libSet_Test
+        samples/Test.c)
+
+target_link_libraries(libSet_Test
+        Set)
 
 
 ########################################################################################################################

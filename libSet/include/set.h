@@ -36,15 +36,22 @@ typedef struct {
     node_t* last;
 } set;
 
+
 /**
  *  Creates an empty set
+ *  Result assertion:      |R| = 0
  *
  *  @return         a empty set containing zero items
  */
 DLL set* set_empty();
 
 
-// Create new set from given data
+/**
+ *  Creates a new set with a single item, which is given
+ *
+ *  @param X        the item to start the set with
+ *  @return         a new set containg one item
+ */
 #define set_create(X) _Generic((X), \
         int8_t : set_create_i8, uint8_t : set_create_u8, \
         int16_t : set_create_i16, uint16_t : set_create_u16, \
@@ -70,7 +77,17 @@ DLL set* set_create_f32(float32 value);
 DLL set* set_create_f64(float64 value);
 
 
-// Add a value to given set
+/**
+ *  Adds a single item to an existing set
+ *  Equals the operation:   R := X ∪ { Y }
+ *  Result assertion:      |R| ≥ |X|
+ *
+ *  @param X        the existing set to add to
+ *  @param Y        the item to add to the set
+ *  @return         true if operation successful, false otherwise
+ *
+ *  TODO: add operation X ∪ V, where X is set and V is vector, and X ∪ Z, where X,Z are sets
+ */
 #define set_add(X, Y) _Generic((Y) \
         int8_t : set_add_i8, uint8_t : set_add_u8, \
         int16_t : set_add_i16, uint16_t : set_add_u16, \
@@ -95,7 +112,16 @@ DLL bool set_add_f32(set* cur, float32 value);
 DLL bool set_add_f64(set* cur, float64 value);
 
 
-// Get the minimum value from given set
+/**
+ *  Gets the minimum value from given set
+ *  Result assertion:
+ *
+ *  @param X        the existing set to get the minimum from
+ *  @param Y        pointer to variable to store the value to
+ *  @return         true if there is a minimum, false otherwise
+ *
+ *  TODO: what todo with pair?
+ */
 #define set_min(X, Y) _Generic((Y) \
         int8_t : set_min_i8, uint8_t : set_min_u8, \
         int16_t : set_min_i16, uint16_t : set_min_u16, \
@@ -120,7 +146,15 @@ DLL bool set_min_f32(set* cur, float32* result);
 DLL bool set_min_f64(set* cur, float64* result);
 
 
-// Get the maximum value from given set
+/**
+ *  Gets the maximum value from given set
+ *
+ *  @param X        the existing set to get the maximum from
+ *  @param Y        pointer to variable to store the value to
+ *  @return         true if there is a maximum, false otherwise
+ *
+ *  TODO: what todo with pair?
+ */
 #define set_max(X, Y) _Generic((Y) \
         int8_t : set_max_i8, uint8_t : set_max_u8, \
         int16_t : set_max_i16, uint16_t : set_max_u16, \
@@ -128,8 +162,6 @@ DLL bool set_min_f64(set* cur, float64* result);
         int64_t : set_max_i64, uint64_t : set_max_u64, \
         float32 : set_max_f32, float64 : set_max_f64 \
 ) (X, Y)
-
-//DLL bool set_max_(set* cur, void* result, enum TYPE type);
 
 DLL bool set_max_i8(set* cur, int8_t* result);
 DLL bool set_max_u8(set* cur, uint8_t* result);

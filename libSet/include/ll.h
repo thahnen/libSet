@@ -5,18 +5,42 @@
 #ifndef LIBSET_LL_H
 #define LIBSET_LL_H
 
+#include <stdlib.h>
 
+
+/// Struct holds an item as set stores data in single linked lists
 typedef struct node {
     void* data;
     struct node* next;
 } node_t;
 
 
+/**
+ *  Creates a new node for the set
+ *
+ *  @param ndata    void pointer to given data (to make it more generic)
+ *  @return         new node holding the given data, has no successor
+ */
 node_t* node_create(void* ndata) {
     node_t* new = (node_t*) malloc(sizeof(node_t));
     new->data = ndata;
     new->next = NULL;
     return new;
+}
+
+
+/**
+ *  Deletes the given node and returns its successor
+ *  Also sets data to NULL but does not free cur->next!
+ *
+ *  @param cur      the node to destroy
+ *  @return         the next node
+ */
+node_t* node_delete(node_t* cur) {
+    node_t* next = cur->next;
+    cur->data = NULL;
+    free(cur);
+    return next;
 }
 
 

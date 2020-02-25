@@ -45,4 +45,28 @@ enum TYPE {
 )
 
 
+/**
+ *  Returns the size of the data type corresponding to the given enum item in bytes
+ *  Excludes NONE and PAIR
+ *
+ *  @param type     the enum item to get the data type size of
+ *  @return         returns the data type size or 0
+ *
+ *  TODO: maybe change to macro
+ */
+size_t getSize(enum TYPE type) {
+    switch (type) {
+        case INT8:      return sizeof(int8_t);
+        case UINT8:     return sizeof(uint8_t);
+        case INT16:     return sizeof(int16_t);
+        case UINT16:    return sizeof(uint16_t);
+        case INT32:     return sizeof(int32_t);
+        case UINT32:    return sizeof(uint32_t);
+        case FLOAT32:   return sizeof(float32);
+        case FLOAT64:   return sizeof(float64);
+        default:        return 0;
+    }
+}
+
+
 #endif //SET_TYPE_H

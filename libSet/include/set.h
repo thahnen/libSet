@@ -154,6 +154,7 @@ DLL bool set_min_f64(set* cur, float64* result);
  *  @return         true if there is a maximum, false otherwise
  *
  *  TODO: what todo with pair?
+ *  TODO: handle set sorted -> just return set->last value!
  */
 #define set_max(X, Y) _Generic((Y) \
         int8_t : set_max_i8, uint8_t : set_max_u8, \
@@ -177,6 +178,61 @@ DLL bool set_max_u64(set* cur, uint64_t* result);
 
 DLL bool set_max_f32(set* cur, float32* result);
 DLL bool set_max_f64(set* cur, float64* result);
+
+
+/**
+ *  Adds two sets together
+ *  Equals the operation:   R := A ∪ B
+ *  Result assertion:      |R| <= |A| + |B|
+ *
+ *  @param A        first input set
+ *  @param B        second input set
+ *  @param out      resulting set
+ *  @return         true if union created, false otherwise
+ */
+DLL bool set_union(set* A, set* B, set* out);
+
+
+/**
+ *  Intersects two sets
+ *  Equals the operation:   R := A ∩ B
+ *  Result assertion:      |R| ...
+ *
+ *  @param A        first input set
+ *  @param B        second input set
+ *  @param out      resulting set
+ *  @return         true if intersection created, false otherwise
+ */
+DLL bool set_intersect(set* A, set* B, set* out);
+
+
+/**
+ *  Returns every item in A but not in B
+ *  Equals the operation:   R := A \ B
+ *  Result assertion:      |R| ...
+ *
+ *  @param A        first input set
+ *  @param B        second input set
+ *  @param out      resulting set
+ *  @return         true if difference created, false otherwise
+ */
+DLL bool set_difference(set* A, set* B, set* out);
+
+
+/**
+ *  Returns every item in A, B but not in both
+ *  Equals the operation:   R := A Δ B
+ *  Result assertion:      |R| ...
+ *
+ *  @param A        first input set
+ *  @param B        second input set
+ *  @param out      resulting set
+ *  @return         true if symmetric difference created, false otherwise
+ */
+DLL bool set_symdifference(set* A, set* B, set* out);
+DLL bool set_cartesian(set* A, set* B, set* out);
+DLL bool set_powerset(set* A, set** out);
+DLL bool set_subsetof(set* A, set* B);
 
 
 #endif //LIBSET_LIBRARY_H

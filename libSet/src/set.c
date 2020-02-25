@@ -32,7 +32,7 @@ static set* set_create_(void* value, enum TYPE type) {
     set* new = (set*) malloc(sizeof(set));
     new->type = type;
     new->size = 1;
-    new->root = node_create(value);
+    new->root = node_create(value, getSize(type));
     new->last = new->root;
 
     return new;
@@ -108,7 +108,7 @@ static bool set_add_(set* cur, void* value, enum TYPE type) {
         return false;
     }
 
-    node_t* new = node_create(value);
+    node_t* new = node_create(value, getSize(type));
     if (cur->size == 0) {
         cur->type = type;
         cur->root = new;
@@ -183,7 +183,7 @@ bool set_add_f64(set* cur, float64 value) {
 // TODO: implementation of other functions coming later!
 bool set_min_i8(set* cur, int8_t* result) {
     if (cur == NULL || cur->size == 0) {
-        return NULL;
+        return false;
     }
 
     result = (int8_t*)cur->root->data;
@@ -198,6 +198,25 @@ bool set_min_i8(set* cur, int8_t* result) {
     return true;
 }
 
+
+bool set_min_i32(set* cur, int32_t* result) {
+    if (cur == NULL || cur->size == 0) {
+        return false;
+    }
+
+    result = (int32_t*)cur->root->data;
+    node_t* cur_node = cur->root->next;
+
+    while(cur_node != NULL) {
+        int32_t* now = (int32_t*)cur_node->data;
+        result = *result < *now ? result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+
 bool set_max_i8(set* cur, int8_t* result) {
     if (cur == NULL || cur->size == 0) {
         return false;
@@ -208,6 +227,28 @@ bool set_max_i8(set* cur, int8_t* result) {
 
     while (cur_node != NULL) {
         int8_t* now = (int8_t*)cur_node->data;
+        result = *result > *now ? result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+
+bool set_max_i32(set* cur, int32_t* result) {
+    if (cur == NULL || cur->size == 0) {
+        return false;
+    }
+
+    result = (int32_t*)cur->root->data;
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int32_t* now = (int32_t*)cur_node->data;
+        if (now == NULL) {
+            return false;
+        }
+
         result = *result > *now ? result : now;
         cur_node = cur_node->next;
     }

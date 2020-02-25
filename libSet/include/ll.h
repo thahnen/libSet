@@ -21,10 +21,16 @@ typedef struct node {
  *  @param ndata    void pointer to given data (to make it more generic)
  *  @return         new node holding the given data, has no successor
  */
-node_t* node_create(void* ndata) {
+node_t* node_create(void* ndata, size_t size) {
     node_t* new = (node_t*) malloc(sizeof(node_t));
-    new->data = ndata;
     new->next = NULL;
+
+    // Copy byte per byte (we do not know which data type given!)
+    new->data = malloc(size);
+    for (int i = 0; i < size; i++) {
+        *((uint8_t*)(new->data+i)) = *((uint8_t*)(ndata+i));
+    }
+
     return new;
 }
 
@@ -38,6 +44,7 @@ node_t* node_create(void* ndata) {
  */
 node_t* node_delete(node_t* cur) {
     node_t* next = cur->next;
+    free(cur->data);
     cur->data = NULL;
     free(cur);
     return next;

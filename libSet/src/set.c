@@ -24,7 +24,7 @@ set* set_empty() {
  *  @param type     the type of the item behind the pointer
  *  @return         true if operation successful, false otherwise
  */
-static set* set_create_(void* value, enum TYPE type) {
+static set* set_create_(void* value, TYPE type) {
     if (type == NONE) {
         return NULL;
     }
@@ -99,7 +99,7 @@ set* set_create_f64(float64 value) {
  *
  *  TODO: handle same values!
  */
-static bool set_add_(set* cur, void* value, enum TYPE type) {
+static bool set_add_(set* cur, void* value, TYPE type) {
     // 1) Check if set pointer is not null
     if (cur == NULL) return false;
 

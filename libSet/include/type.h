@@ -12,7 +12,7 @@ typedef double float64;
 
 
 /// Includes every supported set data type
-enum TYPE {
+typedef enum __attribute__ ((packed)) {
     NONE = 0,   // set type not set yet (set_empty function)
     PAIR,       // pair of values, result of cross product
     INT8,       // 8-Bit integer (signed)
@@ -25,7 +25,7 @@ enum TYPE {
     UINT64,     // 64-Bit integer (unsigned)
     FLOAT32,    // 32-Bit floating point
     FLOAT64     // 64-Bit floating point
-};
+} TYPE;
 
 
 /**
@@ -54,7 +54,7 @@ enum TYPE {
  *
  *  TODO: maybe change to macro
  */
-size_t getSize(enum TYPE type) {
+size_t getSize(TYPE type) {
     switch (type) {
         case INT8:      return sizeof(int8_t);
         case UINT8:     return sizeof(uint8_t);

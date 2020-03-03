@@ -29,9 +29,10 @@
 #include "type.h"
 
 
-typedef struct {
-    enum TYPE type;
+// TODO: check size of struct, maybe pack using attribute!
+typedef struct __attribute__ ((packed)) {
     unsigned long size;
+    TYPE type;
     node_t* root;
     node_t* last;
 } set;
@@ -230,8 +231,38 @@ DLL bool set_difference(set* A, set* B, set* out);
  *  @return         true if symmetric difference created, false otherwise
  */
 DLL bool set_symdifference(set* A, set* B, set* out);
+
+
+/**
+ *  Returns every pair from the cartesian product from items in A, B
+ *  Equals the operation:   R := A x B
+ *  Result assertion:       ...
+ *
+ *  @param A        first input set
+ *  @param B        second input set
+ *  @param out      resulting set
+ *  @return         true if cartesian products created, false otherwise
+ */
 DLL bool set_cartesian(set* A, set* B, set* out);
+
+
+/**
+ *  Returns every subset of given input set A
+ *
+ *  @param A        input set
+ *  @param out      output power set
+ *  @return         true if power set created, false otherwise
+ */
 DLL bool set_powerset(set* A, set** out);
+
+
+/**
+ *  Checks if A is a subset of given subset B
+ *
+ *  @param A        maybe subset
+ *  @param B        maybe superset
+ *  @return         true if A is subset, false otherwise
+ */
 DLL bool set_subsetof(set* A, set* B);
 
 

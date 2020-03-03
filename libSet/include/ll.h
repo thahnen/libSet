@@ -37,7 +37,6 @@ node_t* node_create(void* ndata, size_t size) {
 
 /**
  *  Deletes the given node and returns its successor
- *  Also sets data to NULL but does not free cur->next!
  *
  *  @param cur      the node to destroy
  *  @return         the next node
@@ -47,6 +46,7 @@ node_t* node_delete(node_t* cur) {
     free(cur->data);
     cur->data = NULL;
     free(cur);
+    cur = NULL;
     return next;
 }
 

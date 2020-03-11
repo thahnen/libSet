@@ -49,6 +49,8 @@ DLL set* set_empty();
 
 /**
  *  Creates a new set with a single item, which is given
+ *  Equals the operation:   R := { Y }
+ *  Resulut assertion:     |R| = 1
  *
  *  @param X        the item to start the set with
  *  @return         a new set containg one item
@@ -115,7 +117,7 @@ DLL bool set_add_f64(set* cur, float64 value);
 
 /**
  *  Gets the minimum value from given set
- *  Result assertion:
+ *  Equals the operation:   R := min X
  *
  *  @param X        the existing set to get the minimum from
  *  @param Y        pointer to variable to store the value to
@@ -149,6 +151,7 @@ DLL bool set_min_f64(set* cur, float64* result);
 
 /**
  *  Gets the maximum value from given set
+ *  Equals the operation:   R := max X
  *
  *  @param X        the existing set to get the maximum from
  *  @param Y        pointer to variable to store the value to

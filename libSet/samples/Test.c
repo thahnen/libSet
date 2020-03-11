@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 
     // All variables used!
     set* t1;
-    int32_t start, middle, end, min = 0, max = 0;
+    int32_t start, middle, end, min, max;
 
     /*
      *  Assertions on set_empty function!

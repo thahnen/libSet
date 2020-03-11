@@ -7,6 +7,7 @@
 
 
 /// Creates an empty set
+// TODO: merge with set_create_ function!
 set* set_empty() {
     set* new = (set*) malloc(sizeof(set));
     new->type = NONE;
@@ -25,9 +26,7 @@ set* set_empty() {
  *  @return         true if operation successful, false otherwise
  */
 static set* set_create_(void* value, TYPE type) {
-    if (type == NONE) {
-        return NULL;
-    }
+    if (type == NONE) return NULL;
 
     set* new = (set*) malloc(sizeof(set));
     new->type = type;
@@ -180,76 +179,305 @@ bool set_add_f64(set* cur, float64 value) {
 }
 
 
-// TODO: implementation of other functions coming later!
+/// Gets the minimum value from given set
+/// TODO: change to cur->root->data !!!
 bool set_min_i8(set* cur, int8_t* result) {
-    if (cur == NULL || cur->size == 0) {
-        return false;
-    }
+    if (cur == NULL || cur->size == 0) return false;
 
-    result = (int8_t*)cur->root->data;
+    *result = *((int8_t*) cur->root->data);
     node_t* cur_node = cur->root->next;
 
     while (cur_node != NULL) {
-        int8_t* now = (int8_t*)cur_node->data;
-        result = *result < *now ? result : now;
+        int8_t now = *((int8_t*)cur_node->data);
+        *result = *result < now ? *result : now;
         cur_node = cur_node->next;
     }
 
     return true;
 }
 
+bool set_min_u8(set* cur, uint8_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint8_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint8_t now = *((uint8_t*) cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_i16(set* cur, int16_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((int16_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int16_t now = *((int16_t*)cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_u16(set* cur, uint16_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint16_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint16_t now = *((uint16_t*) cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
 
 bool set_min_i32(set* cur, int32_t* result) {
-    if (cur == NULL || cur->size == 0) {
-        return false;
-    }
+    if (cur == NULL || cur->size == 0) return false;
 
-    result = (int32_t*)cur->root->data;
-    node_t* cur_node = cur->root->next;
-
-    while(cur_node != NULL) {
-        int32_t* now = (int32_t*)cur_node->data;
-        result = *result < *now ? result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-
-bool set_max_i8(set* cur, int8_t* result) {
-    if (cur == NULL || cur->size == 0) {
-        return false;
-    }
-
-    result = (int8_t*)cur->root->data;
+    *result = *((int32_t*) cur->root->data);
     node_t* cur_node = cur->root->next;
 
     while (cur_node != NULL) {
-        int8_t* now = (int8_t*)cur_node->data;
-        result = *result > *now ? result : now;
+        int32_t now = *((int32_t*) cur_node->data);
+        *result = *result < now ? *result : now;
         cur_node = cur_node->next;
     }
 
     return true;
 }
 
+bool set_min_u32(set* cur, uint32_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint32_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint32_t now = *((uint32_t*) cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_i64(set* cur, int64_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((int64_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int64_t now = *((int64_t*)cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_u64(set* cur, uint64_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint64_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint64_t now = *((uint64_t*) cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_f32(set* cur, float32* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((float32*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        float32 now = *((float32*)cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_min_f64(set* cur, float64* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((float64*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        float64 now = *((float64*) cur_node->data);
+        *result = *result < now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+
+/// Gets the maximum value from given set
+/// TODO: change to cur->last->data !!!
+bool set_max_i8(set* cur, int8_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((int8_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int8_t now = *((int8_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_u8(set* cur, uint8_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint8_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint8_t now = *((uint8_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_i16(set* cur, int16_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((int16_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int16_t now = *((int16_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_u16(set* cur, uint16_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint16_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint16_t now = *((uint16_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
 
 bool set_max_i32(set* cur, int32_t* result) {
-    if (cur == NULL || cur->size == 0) {
-        return false;
-    }
+    if (cur == NULL || cur->size == 0) return false;
 
-    result = (int32_t*)cur->root->data;
+    *result = *((int32_t*) cur->root->data);
     node_t* cur_node = cur->root->next;
 
     while (cur_node != NULL) {
-        int32_t* now = (int32_t*)cur_node->data;
-        if (now == NULL) {
-            return false;
-        }
+        int32_t now = *((int32_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
 
-        result = *result > *now ? result : now;
+    return true;
+}
+
+bool set_max_u32(set* cur, uint32_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint32_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint32_t now = *((uint32_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_i64(set* cur, int64_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((int64_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        int64_t now = *((int64_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_u64(set* cur, uint64_t* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((uint64_t*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        uint64_t now = *((uint64_t*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_f32(set* cur, float32* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((float32*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        float32 now = *((float32*) cur_node->data);
+        *result = *result > now ? *result : now;
+        cur_node = cur_node->next;
+    }
+
+    return true;
+}
+
+bool set_max_f64(set* cur, float64* result) {
+    if (cur == NULL || cur->size == 0) return false;
+
+    *result = *((float64*) cur->root->data);
+    node_t* cur_node = cur->root->next;
+
+    while (cur_node != NULL) {
+        float64 now = *((float64*) cur_node->data);
+        *result = *result > now ? *result : now;
         cur_node = cur_node->next;
     }
 

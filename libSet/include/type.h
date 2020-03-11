@@ -52,7 +52,7 @@ typedef enum __attribute__ ((packed)) {
  *  @param type     the enum item to get the data type size of
  *  @return         returns the data type size or 0
  *
- *  TODO: maybe change to macro
+ *  TODO: maybe change to macro using typeof(?)
  */
 size_t getSize(TYPE type) {
     switch (type) {

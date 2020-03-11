@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(Set
-        VERSION         1.3.0
+        VERSION         1.5.0
         DESCRIPTION     "Simple shared library for (ordered) sets and their functions"
         HOMEPAGE_URL    "https://github.com/thahnen/libSet"
         LANGUAGES       C)

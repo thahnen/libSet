@@ -483,3 +483,35 @@ bool set_max_f64(set* cur, float64* result) {
 
     return true;
 }
+
+
+/// Adds two sets together
+// TODO: check if pointer is correct (no NULL pointer, etc)
+bool set_union(set* A, set* B, set* out) {
+    // Both are empty or both are pairs
+    if (A->type == NONE && B->type == NONE) {
+        *out = *set_empty();
+        return true;
+    } else if (A->type == PAIR && B->type == PAIR) {
+        // Pairs not implemented yet!
+        return false;
+    }
+
+    // Only one is empty set
+    // TODO: maybe create deep copy?
+    if (A->type == NONE) {
+        *out = *B;
+        return true;
+    } else if (B->type == NONE) {
+        *out = *A;
+        return true;
+    }
+
+    // Float values
+    TYPE otype = max(A->type, B->type);
+    if (otype != NONE) {
+        // 1) Create new set
+        // 2) Loop over A, adding values to new set
+        // 3) Loop over B, adding values to new set
+    }
+}

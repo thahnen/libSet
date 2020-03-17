@@ -23,9 +23,9 @@ int main(int argc, char* argv[]) {
     assert(sizeof(node_t) == 16);
     assert(sizeof(set) == 25);
 
-    printf("Size of enum 'Type': %lu\n", sizeof(TYPE));
-    printf("Size of struct 'node_t': %lu\n", sizeof(node_t));
-    printf("Size of struct 'set': %lu\n", sizeof(set));
+    printf("Size of enum 'Type': %lu Byte\n", sizeof(TYPE));
+    printf("Size of struct 'node_t': %lu Byte\n", sizeof(node_t));
+    printf("Size of struct 'set': %lu Byte\n", sizeof(set));
 
 
     // All variables used!

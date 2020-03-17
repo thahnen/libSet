@@ -29,19 +29,19 @@ typedef enum __attribute__ ((packed)) {
 
 
 /**
- *  Returns the type of given data
+ *  Returns the type of given data type
  *  Excludes every pointer and some other
  *
  *  @param X        the data to get the type from
  *  @return         the corresponding enum item (eg. int8_t => INT8)
  */
-#define getType(X) _Generic((X), \
-                int8_t : INT8, uint8_t : UINT8, \
-                int16_t : INT16, uint16_t : UINT16, \
-                int32_t : INT32, uint32_t : UINT32, \
-                int64_t : INT64, uint64_t : UINT64, \
-                float32 : FLOAT32, float64: FLOAT64, \
-                default : NONE \
+#define getEnumType(X) _Generic((X), \
+        int8_t : INT8, uint8_t : UINT8, \
+        int16_t : INT16, uint16_t : UINT16, \
+        int32_t : INT32, uint32_t : UINT32, \
+        int64_t : INT64, uint64_t : UINT64, \
+        float32 : FLOAT32, float64: FLOAT64, \
+        default : NONE \
 )
 
 
@@ -66,6 +66,143 @@ size_t getSize(TYPE type) {
         case FLOAT64:   return sizeof(float64);
         default:        return 0;
     }
+}
+
+
+/**
+ *  Returns the "maximum" possible data type of two given (for EVERY value)
+ *  Meaning: Some values of INT8 fit into UINT8, but not all! So max{INT8, UINT8} -> NONE!
+ *
+ *  @param a        first type
+ *  @param b        second type
+ *  @return         "maximum" of both or, if not possible, NONE
+ *
+ *  TODO: maybe change rules converting integers to floating point variables
+ */
+TYPE max(TYPE a, TYPE b) {
+    bool a_case = a == NONE;
+    bool b_case = b == NONE;
+    if (a_case || b_case) {
+        // max{NONE, X}         := X
+        return a_case ? b : a;
+    }
+
+    a_case = a == PAIR;
+    b_case = b == PAIR;
+    if (a_case || b_case) {
+        // max{PAIR, PAIR}      := PAIR
+        // max{PAIR, Y}         := NONE
+        return (a_case && b_case) ? a : NONE;
+    }
+
+    a_case = a == INT8;
+    b_case = b == INT8;
+    if (a_case || b_case) {
+        // max{INT8, INT8}       := INT8
+        // max{INT8, INT16}      := INT16
+        // max{INT8, INT32}      := INT32
+        // max{INT8, INT64}      := INT64
+        // max{INT8, Y}          := NONE
+        return (a_case && b_case) ? a :
+            ((a_case && b == INT16) || (b_case && a == INT16)) ? INT16 :
+            ((a_case && b == INT32) || (b_case && a == INT32)) ? INT32 :
+            ((a_case && b == INT64) || (b_case && a == INT64)) ? INT64 : NONE;
+    }
+
+    a_case = a == INT16;
+    b_case = b == INT16;
+    if (a_case || b_case) {
+        // max{INT16, INT16}     := INT16
+        // max{INT16, INT32}     := INT32
+        // max{INT16, INT64}     := INT64
+        // max{INT16, Y}         := NONE
+        return (a_case && b_case) ? a :
+            ((a_case && b == INT32) || (b_case && a == INT32)) ? INT32 :
+            ((a_case && b == INT64) || (b_case && a == INT64)) ? INT64 : NONE;
+    }
+
+    a_case = a == INT32;
+    b_case = b == INT32;
+    if (a_case || b_case) {
+        // max{INT32, INT32}     := INT32
+        // max{INT32, INT64}     := INT64
+        // max{INT32, Y}         := NONE
+        return (a_case && b_case) ? a :
+            ((a_case && b == INT64) || (b_case && a == INT64)) ? INT64 : NONE;
+    }
+
+    a_case = a == INT64;
+    b_case = b == INT64;
+    if (a_case || b_case) {
+        // max{INT64, INT64}     := INT64
+        // max{INT64, Y}         := NONE
+        return (a_case && b_case) ? a : NONE;
+    }
+
+    a_case = a == UINT8;
+    b_case = b == UINT8;
+    if (a_case || b_case) {
+        // max{UINT8, UINT8}     := UINT8
+        // max{UINT8, UINT16}    := UINT16
+        // max{UINT8, UINT32}    := UINT32
+        // max{UINT8, UINT64}    := UINT64
+        // max{UINT8, Y}         := NONE
+        return (a_case && b_case) ? a :
+               ((a_case && b == UINT16) || (b_case && a == UINT16)) ? UINT16 :
+               ((a_case && b == UINT32) || (b_case && a == UINT32)) ? UINT32 :
+               ((a_case && b == UINT64) || (b_case && a == UINT64)) ? UINT64 : NONE;
+    }
+
+    a_case = a == UINT16;
+    b_case = b == UINT16;
+    if (a_case || b_case) {
+        // max{UINT16, UINT16}   := UINT16
+        // max{UINT16, UINT32}   := UINT32
+        // max{UINT16, UINT64}   := UINT64
+        // max{UINT16, Y}        := NONE
+        return (a_case && b_case) ? a :
+               ((a_case && b == UINT32) || (b_case && a == UINT32)) ? UINT32 :
+               ((a_case && b == UINT64) || (b_case && a == UINT64)) ? UINT64 : NONE;
+    }
+
+    a_case = a == UINT32;
+    b_case = b == UINT32;
+    if (a_case || b_case) {
+        // max{UINT32, UINT32}   := UINT32
+        // max{UINT32, UINT64}   := UINT64
+        // max{UINT32, Y}        := NONE
+        return (a_case && b_case) ? a :
+               ((a_case && b == UINT64) || (b_case && a == UINT64)) ? UINT64 : NONE;
+    }
+
+    a_case = a == UINT64;
+    b_case = b == UINT64;
+    if (a_case || b_case) {
+        // max{UINT64, UINT64}   := UINT64
+        // max{UINT64, Y}        := NONE
+        return (a_case && b_case) ? a : NONE;
+    }
+
+    a_case = a == FLOAT32;
+    b_case = b == FLOAT32;
+    if (a_case || b_case) {
+        // max{FLOAT32, FLOAT32} := FLOAT32
+        // max{FLOAT32, FLOAT64} := FLOAT64
+        // max{FLOAT32, Y}       := NONE
+        return (a_case && b_case) ? a :
+               ((a_case && b == FLOAT64) || (b_case && a == FLOAT64)) ? FLOAT64 : NONE;
+    }
+
+    a_case = a == FLOAT64;
+    b_case = b == FLOAT64;
+    if (a_case || b_case) {
+        // max{FLOAT64, FLOAT64} := FLOAT64
+        // max{FLOAT64, Y}       := NONE
+        return (a_case && b_case) ? a : NONE;
+    }
+
+    // Everything unimplemented!
+    return NONE;
 }
 
 

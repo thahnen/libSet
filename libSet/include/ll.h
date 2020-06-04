@@ -6,6 +6,7 @@
 #define LIBSET_LL_H
 
 #include <stdlib.h>
+#include <string.h>
 
 
 /// Struct holds an item as set stores data in single linked lists
@@ -25,11 +26,9 @@ node_t* node_create(void* ndata, size_t size) {
     node_t* new = (node_t*) malloc(sizeof(node_t));
     new->next = NULL;
 
-    // Copy byte per byte (we do not know which data type given!)
+    // Copy byte per byte
     new->data = malloc(size);
-    for (int i = 0; i < size; i++) {
-        *((uint8_t*)(new->data+i)) = *((uint8_t*)(ndata+i));
-    }
+    memcpy(new->data, ndata, size);
 
     return new;
 }

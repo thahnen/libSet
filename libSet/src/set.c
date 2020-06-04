@@ -507,11 +507,90 @@ bool set_union(set* A, set* B, set* out) {
         return true;
     }
 
-    // Float values
+    // All other values!
     TYPE otype = max(A->type, B->type);
     if (otype != NONE) {
         // 1) Create new set
+        *out = *set_empty();
+
         // 2) Loop over A, adding values to new set
+        node_t* cur = A->root;
+        do {
+            switch (otype) {
+            case INT8:
+                set_add_i8(out, *(int8_t*)cur->data);
+                break;
+            case UINT8:
+                set_add_u8(out, *(uint8_t*)cur->data);
+                break;
+            case INT16:
+                set_add_i16(out, *(int16_t*)cur->data);
+                break;
+            case UINT16:
+                set_add_u16(out, *(uint16_t*)cur->data);
+                break;
+            case INT32:
+                set_add_i32(out, *(int32_t*)cur->data);
+                break;
+            case UINT32:
+                set_add_u32(out, *(uint32_t*)cur->data);
+                break;
+            case INT64:
+                set_add_i64(out, *(int64_t*)cur->data);
+                break;
+            case UINT64:
+                set_add_u64(out, *(uint64_t*)cur->data);
+                break;
+            case FLOAT32:
+                set_add_f32(out, *(float32*)cur->data);
+                break;
+            case FLOAT64:
+                set_add_f64(out, *(float64*)cur->data);
+            }
+
+            cur = cur->next;
+        } while (cur);
+
         // 3) Loop over B, adding values to new set
+        cur = B->root;
+        do {
+            switch (otype) {
+            case INT8:
+                set_add_i8(out, *(int8_t*)cur->data);
+                break;
+            case UINT8:
+                set_add_u8(out, *(uint8_t*)cur->data);
+                break;
+            case INT16:
+                set_add_i16(out, *(int16_t*)cur->data);
+                break;
+            case UINT16:
+                set_add_u16(out, *(uint16_t*)cur->data);
+                break;
+            case INT32:
+                set_add_i32(out, *(int32_t*)cur->data);
+                break;
+            case UINT32:
+                set_add_u32(out, *(uint32_t*)cur->data);
+                break;
+            case INT64:
+                set_add_i64(out, *(int64_t*)cur->data);
+                break;
+            case UINT64:
+                set_add_u64(out, *(uint64_t*)cur->data);
+                break;
+            case FLOAT32:
+                set_add_f32(out, *(float32*)cur->data);
+                break;
+            case FLOAT64:
+                set_add_f64(out, *(float64*)cur->data);
+            }
+
+            cur = cur->next;
+        } while (cur);
+
+        return true;
     }
+
+    return false;
 }

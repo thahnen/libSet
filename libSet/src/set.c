@@ -6,18 +6,6 @@
 #include "set.h"
 
 
-/// Creates an empty set
-// TODO: merge with set_create_ function!
-set* set_empty() {
-    set* new = (set*) malloc(sizeof(set));
-    new->type = NONE;
-    new->size = 0;
-    new->root = NULL;
-    new->last = NULL;
-    return new;
-}
-
-
 /**
  *  Creates a new set with one value from given type
  *
@@ -26,15 +14,23 @@ set* set_empty() {
  *  @return         true if operation successful, false otherwise
  */
 static set* set_create_(void* value, TYPE type) {
-    if (type == NONE) return NULL;
-
     set* new = (set*) malloc(sizeof(set));
     new->type = type;
-    new->size = 1;
-    new->root = node_create(value, getSize(type));
-    new->last = new->root;
+
+    if (value == NULL || type == NONE) {
+        new->size = 0;
+        new->root = NULL;
+    } else {
+        new->size = 1;
+        new->root = node_create(value, getSize(type));
+    }
 
     return new;
+}
+
+/// Creates an empty set
+set* set_empty() {
+    return set_create_(NULL, NONE);
 }
 
 /// Creates a new set with one 8-Bit integer item
@@ -96,33 +92,57 @@ set* set_create_f64(float64 value) {
  *  @param type     the type of the item behind the pointer
  *  @return         true if operation successful, false otherwise
  *
- *  TODO: handle same values!
+ *  TODO: add pair support
  */
 static bool set_add_(set* cur, void* value, TYPE type) {
     // 1) Check if set pointer is not null
     if (cur == NULL) return false;
 
     // 2) check if set type equals type of new value
-    if (cur->type != type && cur->type != NONE) {
-        return false;
+    if (cur->type != type && cur->type != NONE) return false;
+
+    // 3) check if value already in set
+    node_t* curNode = cur->root;
+    if (curNode != NONE) {
+        while (curNode->next != NULL) {
+            switch (type) {
+            case INT8:
+            case UINT8:
+                if (*(int8_t*)curNode->data == *(int8_t*)value)     return true;
+                break;
+            case INT16:
+            case UINT16:
+                if (*(int16_t*)curNode->data == *(int16_t*)value)   return true;
+                break;
+            case INT32:
+            case UINT32:
+            case FLOAT32:
+                if (*(int32_t*)curNode->data == *(int32_t*)value)   return true;
+                break;
+            case INT64:
+            case UINT64:
+            case FLOAT64:
+                if (*(int64_t*)curNode->data == *(int64_t*)value)   return true;
+                break;
+            case PAIR:
+                // not implemented yet
+                return false;
+            }
+
+            curNode = curNode->next;
+        }
     }
 
+    // 4) value not in set, needs to be added
     node_t* new = node_create(value, getSize(type));
     if (cur->size == 0) {
         cur->type = type;
         cur->root = new;
-        cur->last = new;
 
         return true;
     }
 
-    node_t* curNode = cur->root;
-    while (curNode->next != NULL) {
-        curNode = curNode->next;
-    }
-
     curNode->next = new;
-    cur->last = new;
     cur->size++;
 
     return true;
@@ -333,7 +353,6 @@ bool set_min_f64(set* cur, float64* result) {
 
 
 /// Gets the maximum value from given set
-/// TODO: change to cur->last->data !!!
 bool set_max_i8(set* cur, int8_t* result) {
     if (cur == NULL || cur->size == 0) return false;
 
@@ -486,8 +505,12 @@ bool set_max_f64(set* cur, float64* result) {
 
 
 /// Adds two sets together
-// TODO: check if pointer is correct (no NULL pointer, etc)
 bool set_union(set* A, set* B, set* out) {
+    // Null-Pointer not allowed
+    if (out == NULL || (A == NULL && B == NULL)) {
+        return false;
+    }
+
     // Both are empty or both are pairs
     if (A->type == NONE && B->type == NONE) {
         *out = *set_empty();
@@ -499,10 +522,10 @@ bool set_union(set* A, set* B, set* out) {
 
     // Only one is empty set
     // TODO: maybe create deep copy?
-    if (A->type == NONE) {
+    if (A->type == NONE || A == NULL) {
         *out = *B;
         return true;
-    } else if (B->type == NONE) {
+    } else if (B->type == NONE || B == NULL) {
         *out = *A;
         return true;
     }

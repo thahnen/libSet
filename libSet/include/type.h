@@ -11,7 +11,7 @@ typedef float float32;
 typedef double float64;
 
 
-/// Includes every supported set data type
+/// includes every supported set data type
 typedef enum __attribute__ ((packed)) {
     NONE = 0,   // set type not set yet (set_empty function)
     PAIR,       // pair of values, result of cross product
@@ -28,6 +28,20 @@ typedef enum __attribute__ ((packed)) {
 } TYPE;
 
 
+/// pair structure
+typedef struct {
+    struct {
+        TYPE type;
+        void* value;
+    } elem1;
+
+    struct {
+        TYPE type;
+        void* value;
+    } elem2;
+} Pair;
+
+
 /**
  *  Returns the type of given data type
  *  Excludes every pointer and some other
@@ -41,6 +55,7 @@ typedef enum __attribute__ ((packed)) {
         int32_t : INT32, uint32_t : UINT32, \
         int64_t : INT64, uint64_t : UINT64, \
         float32 : FLOAT32, float64: FLOAT64, \
+        Pair: PAIR, \
         default : NONE \
 )
 
@@ -64,6 +79,7 @@ size_t getSize(TYPE type) {
         case UINT32:    return sizeof(uint32_t);
         case FLOAT32:   return sizeof(float32);
         case FLOAT64:   return sizeof(float64);
+        case PAIR:      return sizeof(Pair);
         default:        return 0;
     }
 }

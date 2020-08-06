@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.15)
 project(Set
-        VERSION         1.5.5
+        VERSION         1.6.0
         DESCRIPTION     "Simple shared library for (ordered) sets and their functions"
         HOMEPAGE_URL    "https://github.com/thahnen/libSet"
         LANGUAGES       C)
 
 set(CMAKE_C_STANDARD 11)
-
 set(DEFAULT_BUILD_TYPE "Release")
 
 include_directories(./include)
+
 
 ########################################################################################################################
 #
@@ -18,7 +18,9 @@ include_directories(./include)
 ########################################################################################################################
 add_library(${PROJECT_NAME}
         SHARED
-            src/set.c include/ll.h include/type.h)
+            include/ll.h
+            include/type.h
+            src/set.c)
 
 set_target_properties(${PROJECT_NAME}
         PROPERTIES
@@ -32,7 +34,6 @@ target_include_directories(${PROJECT_NAME}
             $<INSTALL_INTERFACE:include>
         PRIVATE
             ${PROJECT_SOURCE_DIR}/src)
-
 
 
 ########################################################################################################################

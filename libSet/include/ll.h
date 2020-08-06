@@ -37,7 +37,7 @@ node_t* node_create(void* ndata, size_t size) {
 /**
  *  Deletes the given node and returns its successor
  *
- *  @param cur      the node to destroy
+ *  @param cur      the node to delete
  *  @return         the next node
  */
 node_t* node_delete(node_t* cur) {

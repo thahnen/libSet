@@ -29,12 +29,11 @@
 #include "type.h"
 
 
-// TODO: check size of struct, maybe pack using attribute!
+// TODO: add preprocessor attribute (packed on memory efficiency, not packed on speed efficiency)
 typedef struct __attribute__ ((packed)) {
     unsigned long size;
     TYPE type;
     node_t* root;
-    node_t* last;
 } set;
 
 
@@ -158,7 +157,6 @@ DLL bool set_min_f64(set* cur, float64* result);
  *  @return         true if there is a maximum, false otherwise
  *
  *  TODO: what todo with pair?
- *  TODO: handle set sorted -> just return set->last value!
  */
 #define set_max(X, Y) _Generic((Y) \
         int8_t : set_max_i8, uint8_t : set_max_u8, \

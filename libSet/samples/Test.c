@@ -19,9 +19,6 @@ int main(int argc, char* argv[]) {
      *      set->root = 8 byte (node_t*)
      *      set->last = 8 byte (node_t*)
      */
-    assert(sizeof(TYPE) == 1);
-    assert(sizeof(node_t) == 16);
-    assert(sizeof(set) == 25);
 
     printf("Size of enum 'Type': %lu Byte\n", sizeof(TYPE));
     printf("Size of struct 'node_t': %lu Byte\n", sizeof(node_t));
@@ -30,21 +27,19 @@ int main(int argc, char* argv[]) {
 
     // All variables used!
     set* t1;
-    int32_t start, middle, end, min, max;
+    int32_t first, second, third, min, max;
 
     /*
      *  Assertions on set_empty function!
      *
      *  1) set->size == 0
-     *  1) set->type == NONE
-     *  1) set->root == NULL
-     *  1) set->last == NULL
+     *  2) set->type == NONE
+     *  3) set->root == NULL
      */
     t1 = set_empty();
     assert(t1->size == 0);
     assert(t1->type == NONE);
     assert(t1->root == NULL);
-    assert(t1->last == NULL);
 
     printf("t1 size: %lu \n", t1->size);
 
@@ -57,17 +52,15 @@ int main(int argc, char* argv[]) {
      *  3) set->root != NULL
      *      &&  set->root->data != NULL
      *      &&  *((int32_t*)set->root->data) == 100
-     *  4) set->last == set->root
      */
     t1 = set_create_i32(100);
     assert(t1->size == 1);
     assert(t1->type == INT32);
     assert(t1->root != NULL && t1->root->data != NULL && *((int32_t*)t1->root->data) == 100);
-    assert(t1->last == t1->root);
 
-    start = *((int32_t*)t1->root->data);
+    first = *((int32_t*)t1->root->data);
     printf("t1 size: %lu \n", t1->size);
-    printf("t1 first element value: %d \n", start);
+    printf("t1 first element value: %d \n", first);
 
 
     /*
@@ -78,9 +71,9 @@ int main(int argc, char* argv[]) {
      *  3) set->root != NULL
      *      &&  set->root->data != NULL
      *      &&  *((int32_t*)set->root->data) == 100
-     *  4) set->last != NULL
-     *      &&  set->last->data != NULL
-     *      &&  *((int32_t*)set->last->data) == 101
+     *  4) set->root->next != NULL
+     *      &&  set->root->next != NULL
+     *      &&  *((int32_t*)set->root->next->data) == 101
      */
     if (!set_add_i32(t1, 101)) {
         printf("Adding value to set error!\n");
@@ -89,13 +82,13 @@ int main(int argc, char* argv[]) {
     assert(t1->size == 2);
     assert(t1->type == INT32);
     assert(t1->root != NULL && t1->root->data != NULL && *((int32_t*)t1->root->data) == 100);
-    assert(t1->last != NULL && t1->last->data != NULL && *((int32_t*)t1->last->data) == 101);
+    assert(t1->root->next != NULL && t1->root->next->data != NULL && *((int32_t*)t1->root->next->data) == 101);
 
-    start = *((int32_t*)t1->root->data);
-    end = *((int32_t*)t1->last->data);
+    first = *((int32_t*)t1->root->data);
+    second = *((int32_t*)t1->root->next->data);
     printf("t1 size: %lu \n", t1->size);
-    printf("t1 first element value: %d \n", start);
-    printf("t1 last element value: %d \n", end);
+    printf("t1 first element value: %d \n", first);
+    printf("t1 second element value: %d \n", second);
 
 
     /*
@@ -109,9 +102,9 @@ int main(int argc, char* argv[]) {
      *  4) set->root->next != NULL
      *      &&  set->root->next->data != NULL
      *      &&  *((int32_t*)set->root->next->data) == 101
-     *  5) set->last != NULL
-     *      &&  set->last->data != NULL
-     *      &&  *((int32_t*)set->last->data) == 102
+     *  5) set->root->next->next != NULL
+     *      &&  set->root->next->next->data != NULL
+     *      &&  *((int32_t*)set->root->next->next->data) == 102
      */
     if (!set_add_i32(t1, 102)) {
         printf("Adding value to set error!\n");
@@ -121,15 +114,16 @@ int main(int argc, char* argv[]) {
     assert(t1->type == INT32);
     assert(t1->root != NULL && t1->root->data != NULL && *((int32_t*)t1->root->data) == 100);
     assert(t1->root->next != NULL && t1->root->next->data != NULL && *((int32_t*)t1->root->next->data) == 101);
-    assert(t1->last != NULL && t1->last->data != NULL && *((int32_t*)t1->last->data) == 102);
+    assert(t1->root->next->next != NULL && t1->root->next->next->data != NULL
+            && *((int32_t*)t1->root->next->next->data) == 102);
 
-    start = *((int32_t*)(t1->root->data));
-    middle = *((int32_t*)t1->root->next->data);
-    end = *((int32_t*)(t1->last->data));
+    first = *((int32_t*)(t1->root->data));
+    second = *((int32_t*)t1->root->next->data);
+    third = *((int32_t*)(t1->root->next->next->data));
     printf("t1 size: %lu \n", t1->size);
-    printf("t1 first element value: %d \n", start);
-    printf("t1 middle element value: %d \n", middle);
-    printf("t1 last element value: %d \n", end);
+    printf("t1 first element value: %d \n", first);
+    printf("t1 middle element value: %d \n", second);
+    printf("t1 last element value: %d \n", third);
 
 
     /*

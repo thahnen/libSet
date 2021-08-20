@@ -13,3 +13,10 @@ _deps
 cmake-build-*/
 .idea/
 .vscode/
+
+**/.DS_STORE
+libSet/libSetConfig.cmake
+libSet/build
+libSet/Debug
+libSet/Set.build/
+logs/

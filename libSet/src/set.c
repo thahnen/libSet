@@ -33,55 +33,37 @@ set* set_empty() {
     return set_create_(NULL, NONE);
 }
 
-/// Creates a new set with one 8-Bit integer item
-set* set_create_i8(int8_t value) {
-    return set_create_((void*) &value, INT8);
-}
 
-/// Creates a new set with one unsigned 8-Bit integer item
-set* set_create_u8(uint8_t value) {
-    return set_create_((void*) &value, UINT8);
-}
+#define set_create_i(powerOfTwo) \
+    inline set* set_create_i##powerOfTwo (int##powerOfTwo##_t value) { \
+        return set_create_((void*) &value, INT##powerOfTwo ); \
+    }
 
-/// Creates a new set with one 16-Bit integer item
-set* set_create_i16(int16_t value) {
-    return set_create_((void*) &value, INT16);
-}
+#define set_create_u(powerOfTwo) \
+    inline set* set_create_u##powerOfTwo (uint##powerOfTwo##_t value) { \
+        return set_create_((void*) &value, UINT##powerOfTwo ); \
+    }
 
-/// Creates a new set with one unsigned 16-Bit integer item
-set* set_create_u16(uint16_t value) {
-    return set_create_((void*) &value, UINT16);
-}
+#define set_create_f(powerOfTwo) \
+    inline set* set_create_f##powerOfTwo (float##powerOfTwo value) { \
+        return set_create_((void*) &value, FLOAT##powerOfTwo ); \
+    }
 
-/// Creates a new set with one 32-Bit integer item
-set* set_create_i32(int32_t value) {
-    return set_create_((void*) &value, INT32);
-}
+/// Creates a new set with one 8/16/32/64-bit signed integer
+set_create_i(8)
+set_create_i(16)
+set_create_i(32)
+set_create_i(64)
 
-/// Creates a new set with one unsigned 32-Bit integer item
-set* set_create_u32(uint32_t value) {
-    return set_create_((void*) &value, UINT32);
-}
+/// Creates a new set with one 8/16/32/64-bit unsigned integer
+set_create_u(8)
+set_create_u(16)
+set_create_u(32)
+set_create_u(64)
 
-/// Creates a new set with one 64-Bit integer item
-set* set_create_i64(int64_t value) {
-    return set_create_((void*) &value, INT64);
-}
-
-/// Creates a new set with one unsigned 64-Bit integer item
-set* set_create_u64(uint64_t value) {
-    return set_create_((void*) &value, UINT64);
-}
-
-/// Creates a new set with one 32-Bit floating point item
-set* set_create_f32(float32 value) {
-    return set_create_((void*) &value, FLOAT32);
-}
-
-/// Creates a new set with one 64-Bit floating point item
-set* set_create_f64(float64 value) {
-    return set_create_((void*) &value, FLOAT64);
-}
+/// Creates a new set with one 32/64-bit floating point
+set_create_f(32)
+set_create_f(64)
 
 
 /**
@@ -93,8 +75,9 @@ set* set_create_f64(float64 value) {
  *  @return         true if operation successful, false otherwise
  *
  *  TODO: add pair support
+ *  TODO: add to empty set
  */
-static bool set_add_(set* cur, void* value, TYPE type) {
+static bool set_add_(set* restrict cur, void* restrict value, TYPE type) {
     // 1) Check if set pointer is not null
     if (cur == NULL) return false;
 
@@ -148,360 +131,147 @@ static bool set_add_(set* cur, void* value, TYPE type) {
     return true;
 }
 
-/// Adds a value to given set if it contains 8-Bit integer
-bool set_add_i8(set* cur, int8_t value) {
-    return set_add_(cur, (void*) &value, INT8);
-}
 
-/// Adds a value to given set if it contains unsigned 8-Bit integer
-bool set_add_u8(set* cur, uint8_t value) {
-    return set_add_(cur, (void*) &value, UINT8);
-}
-
-/// Adds a value to given set if it contains 16-Bit integer
-bool set_add_i16(set* cur, int16_t value) {
-    return set_add_(cur, (void*) &value, INT16);
-}
-
-/// Adds a value to given set if it contains unsigned 16-Bit integer
-bool set_add_u16(set* cur, uint16_t value) {
-    return set_add_(cur, (void*) &value, UINT16);
-}
-
-/// Adds a value to given set if it contains 32-Bit integer
-bool set_add_i32(set* cur, int32_t value) {
-    return set_add_(cur, (void*) &value, INT32);
-}
-
-/// Adds a value to given set if it contains unsigned 32-Bit integer
-bool set_add_u32(set* cur, uint32_t value) {
-    return set_add_(cur, (void*) &value, UINT32);
-}
-
-/// Adds a value to given set if it contains 64-Bit integer
-bool set_add_i64(set* cur, int64_t value) {
-    return set_add_(cur, (void*) &value, INT64);
-}
-
-/// Adds a value to given set if it contains unsigned 64-Bit integer
-bool set_add_u64(set* cur, uint64_t value) {
-    return set_add_(cur, (void*) &value, UINT64);
-}
-
-/// Adds a value to given set if it contains 32-Bit floating points
-bool set_add_f32(set* cur, float32 value) {
-    return set_add_(cur, (void*) &value, FLOAT32);
-}
-
-/// Adds a value to given set if it contains 64-Bit floating points
-bool set_add_f64(set* cur, float64 value) {
-    return set_add_(cur, (void*) &value, FLOAT64);
-}
-
-
-/// Gets the minimum value from given set
-/// TODO: change to cur->root->data !!!
-bool set_min_i8(set* cur, int8_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int8_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int8_t now = *((int8_t*)cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_add_i(powerOfTwo) \
+    inline bool set_add_i##powerOfTwo (set* cur, int##powerOfTwo##_t value) { \
+        return set_add_(cur, (void*) &value, INT##powerOfTwo );\
     }
 
-    return true;
-}
-
-bool set_min_u8(set* cur, uint8_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint8_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint8_t now = *((uint8_t*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_add_u(powerOfTwo) \
+    inline bool set_add_u##powerOfTwo (set* cur, uint##powerOfTwo##_t value) { \
+        return set_add_(cur, (void*) &value, UINT##powerOfTwo );\
     }
 
-    return true;
-}
-
-bool set_min_i16(set* cur, int16_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int16_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int16_t now = *((int16_t*)cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_add_f(powerOfTwo) \
+    inline bool set_add_f##powerOfTwo (set* cur, float##powerOfTwo value) { \
+        return set_add_(cur, (void*) &value, FLOAT##powerOfTwo ); \
     }
 
-    return true;
-}
+/// Adds a value to given set if it contains 8/16/32/64-bit signed integer
+set_add_i(8)
+set_add_i(16)
+set_add_i(32)
+set_add_i(64)
 
-bool set_min_u16(set* cur, uint16_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
+/// Adds a value to given set if it contains 8/16/32/64-bit unsigned integer
+set_add_u(8)
+set_add_u(16)
+set_add_u(32)
+set_add_u(64)
 
-    *result = *((uint16_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
+/// Adds a value to given set if it contains 32/64-bit floating point
+set_add_f(32)
+set_add_f(64)
 
-    while (cur_node != NULL) {
-        uint16_t now = *((uint16_t*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+
+#define set_min_i(powerOfTwo) \
+    bool set_min_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
+        if (cur == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((int##powerOfTwo##_t*) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            int##powerOfTwo##_t now = *((int##powerOfTwo##_t*) cur_node->data); \
+            *result = *result < now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
+        return true; \
     }
 
-    return true;
-}
-
-bool set_min_i32(set* cur, int32_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int32_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int32_t now = *((int32_t*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_min_u(powerOfTwo) \
+    bool set_min_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
+        if (cur == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((uint##powerOfTwo##_t*) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            uint##powerOfTwo##_t now = *((uint##powerOfTwo##_t*) cur_node->data); \
+            *result = *result < now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
+        return true; \
     }
 
-    return true;
-}
-
-bool set_min_u32(set* cur, uint32_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint32_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint32_t now = *((uint32_t*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_min_f(powerOfTwo) \
+    bool set_min_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
+        if (cur == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((float##powerOfTwo *) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            float##powerOfTwo now = *((float##powerOfTwo *) cur_node->data); \
+            *result = *result < now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
+        return true; \
     }
 
-    return true;
-}
+/// Gets the minumum value from given set with 8/16/32/64-bit signed integer
+set_min_i(8)
+set_min_i(16)
+set_min_i(32)
+set_min_i(64)
 
-bool set_min_i64(set* cur, int64_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
+/// Gets the minimum value from given set with 8/16/32/64-bit unsigned integer
+set_min_u(8)
+set_min_u(16)
+set_min_u(32)
+set_min_u(64)
 
-    *result = *((int64_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
+/// Gets the minimum value from given set with 32/64-bit floating point
+set_min_f(32)
+set_min_f(64)
 
-    while (cur_node != NULL) {
-        int64_t now = *((int64_t*)cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+
+#define set_max_i(powerOfTwo) \
+    bool set_max_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
+        if (cur == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((int##powerOfTwo##_t*) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            int##powerOfTwo##_t now = *((int##powerOfTwo##_t*) cur_node->data); \
+            *result = *result > now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
     }
 
-    return true;
-}
-
-bool set_min_u64(set* cur, uint64_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint64_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint64_t now = *((uint64_t*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_max_u(powerOfTwo) \
+    bool set_max_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
+        if (cur == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((uint##powerOfTwo##_t*) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            uint##powerOfTwo##_t now = *((uint##powerOfTwo##_t*) cur_node->data); \
+            *result = *result > now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
     }
 
-    return true;
-}
-
-bool set_min_f32(set* cur, float32* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((float32*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        float32 now = *((float32*)cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
+#define set_max_f(powerOfTwo) \
+    bool set_max_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
+        if (cur == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+        *result = *((float##powerOfTwo *) cur->root->data); \
+        node_t* cur_node = cur->root->next; \
+        while (cur_node != NULL) { \
+            float##powerOfTwo now = *((float##powerOfTwo *) cur_node->data); \
+            *result = *result > now ? *result : now; \
+            cur_node = cur_node->next; \
+        } \
     }
 
-    return true;
-}
+/// Gets the maximum value from given set with 8/16/32/64-bit signed integer
+set_max_i(8)
+set_max_i(16)
+set_max_i(32)
+set_max_i(64)
 
-bool set_min_f64(set* cur, float64* result) {
-    if (cur == NULL || cur->size == 0) return false;
+/// Gets the maximum value from given set with 8/16/32/64-bit unsigned integer
+set_max_u(8)
+set_max_u(16)
+set_max_u(32)
+set_max_u(64)
 
-    *result = *((float64*) cur->root->data);
-    node_t* cur_node = cur->root->next;
+/// Gets the maximum value from given set with 32/64-bit floating point
+set_max_f(32)
+set_max_f(64)
 
-    while (cur_node != NULL) {
-        float64 now = *((float64*) cur_node->data);
-        *result = *result < now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-
-/// Gets the maximum value from given set
-bool set_max_i8(set* cur, int8_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int8_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int8_t now = *((int8_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_u8(set* cur, uint8_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint8_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint8_t now = *((uint8_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_i16(set* cur, int16_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int16_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int16_t now = *((int16_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_u16(set* cur, uint16_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint16_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint16_t now = *((uint16_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_i32(set* cur, int32_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int32_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int32_t now = *((int32_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_u32(set* cur, uint32_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint32_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint32_t now = *((uint32_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_i64(set* cur, int64_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((int64_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        int64_t now = *((int64_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_u64(set* cur, uint64_t* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((uint64_t*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        uint64_t now = *((uint64_t*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_f32(set* cur, float32* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((float32*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        float32 now = *((float32*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
-
-bool set_max_f64(set* cur, float64* result) {
-    if (cur == NULL || cur->size == 0) return false;
-
-    *result = *((float64*) cur->root->data);
-    node_t* cur_node = cur->root->next;
-
-    while (cur_node != NULL) {
-        float64 now = *((float64*) cur_node->data);
-        *result = *result > now ? *result : now;
-        cur_node = cur_node->next;
-    }
-
-    return true;
-}
 
 
 /// Adds two sets together

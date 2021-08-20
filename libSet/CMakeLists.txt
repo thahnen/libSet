@@ -11,15 +11,16 @@ set(DEFAULT_BUILD_TYPE "Release")
 include_directories(./include)
 
 
-########################################################################################################################
+####################################################################################################
 #
 #           SHARED LIBRARY
 #
-########################################################################################################################
+####################################################################################################
 add_library(${PROJECT_NAME}
         SHARED
             include/ll.h
             include/type.h
+            include/set.h
             src/set.c)
 
 set_target_properties(${PROJECT_NAME}
@@ -27,53 +28,34 @@ set_target_properties(${PROJECT_NAME}
             VERSION ${PROJECT_VERSION}
             C_VISIBILITY_PRESET hidden
             PUBLIC_HEADER include/set.h)
-
+            
 target_include_directories(${PROJECT_NAME}
         PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:include>
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/src)
+            ${PROJECT_SOURCE_DIR/include})
 
 
-########################################################################################################################
+####################################################################################################
 #           FIND LIBRARY AFTER BUILD PROCESS!
-########################################################################################################################
+####################################################################################################
 find_library(Set REUQIRED)
 
 
-########################################################################################################################
+####################################################################################################
 #
 #           TEST LIBRARY
 #
-########################################################################################################################
+####################################################################################################
 add_executable(libSet_Test
         samples/Test.c)
 
-target_link_libraries(libSet_Test
-        Set)
+target_include_directories(libSet_Test PUBLIC "/usr/local/Cellar/check/0.15.2/include")
+target_link_libraries(libSet_Test Set "/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib")
 
 
-########################################################################################################################
+####################################################################################################
 #
 #           INSTALL LIBRARY TO FILESYSTEM
 #
-########################################################################################################################
-install(TARGETS ${PROJECT_NAME}
-        EXPORT
-            libSetConfig
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-install(DIRECTORY include/
-        DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
-
-install(EXPORT libSetConfig
-        DESTINATION
-            share/libSet/cmake)
-
-export(TARGETS ${PROJECT_NAME}
-        FILE
-            libSetConfig.cmake)
+####################################################################################################
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+install(FILES include/set.h DESTINATION include)

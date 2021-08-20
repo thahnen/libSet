@@ -125,11 +125,11 @@ DLL bool set_add_f64(set* cur, float64 value);
  *  TODO: what todo with pair?
  */
 #define set_min(X, Y) _Generic((Y) \
-        int8_t : set_min_i8, uint8_t : set_min_u8, \
-        int16_t : set_min_i16, uint16_t : set_min_u16, \
-        int32_t : set_min_i32, uint32_t : set_min_u32, \
-        int64_t : set_min_i64, uint64_t : set_min_u64, \
-        float32 : set_min_f32, float64 : set_min_f64 \
+        int8_t* : set_min_i8, uint8_t* : set_min_u8, \
+        int16_t* : set_min_i16, uint16_t* : set_min_u16, \
+        int32_t* : set_min_i32, uint32_t* : set_min_u32, \
+        int64_t* : set_min_i64, uint64_t* : set_min_u64, \
+        float32* : set_min_f32, float64* : set_min_f64 \
 ) (X, Y)
 
 DLL bool set_min_i8(set* cur, int8_t* result);
@@ -159,11 +159,11 @@ DLL bool set_min_f64(set* cur, float64* result);
  *  TODO: what todo with pair?
  */
 #define set_max(X, Y) _Generic((Y) \
-        int8_t : set_max_i8, uint8_t : set_max_u8, \
-        int16_t : set_max_i16, uint16_t : set_max_u16, \
-        int32_t : set_max_i32, uint32_t : set_max_u32, \
-        int64_t : set_max_i64, uint64_t : set_max_u64, \
-        float32 : set_max_f32, float64 : set_max_f64 \
+        int8_t* : set_max_i8, uint8_t* : set_max_u8, \
+        int16_t* : set_max_i16, uint16_t* : set_max_u16, \
+        int32_t* : set_max_i32, uint32_t* : set_max_u32, \
+        int64_t* : set_max_i64, uint64_t* : set_max_u64, \
+        float32* : set_max_f32, float64* : set_max_f64 \
 ) (X, Y)
 
 DLL bool set_max_i8(set* cur, int8_t* result);

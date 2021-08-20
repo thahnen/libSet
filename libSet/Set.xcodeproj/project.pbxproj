@@ -1,0 +1,1131 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		02AA4201EA0A449E9C5227BB /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 3B31FB8EE6264B7688B8AD77 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				93426DA6A4AC2C2AC9CE883C /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				A05467F3681644C6A65B93FE /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
+		29FFAC89298C49ECA5EBFCA2 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C42BC96E63744C59900F8DE5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				D1D5D84D40719703F78E126C /* Generate CMakeFiles/ALL_BUILD */,
+			);
+			dependencies = (
+				6F7BBDB74E544574BF9F6C4E /* PBXTargetDependency */,
+				2DFC88F17DCD478CA7E2542E /* PBXTargetDependency */,
+				3AF5E1912950430692CCCC9D /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		A14113FDDA3541208584DEFF /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DB791458BD1345728F3C808E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				750477CE357266846AF9ECB1 /* Generate CMakeFiles/ZERO_CHECK */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		1E98193829714A1C907EBA83 /* /Users/thahnen/GitHub/libSet/libSet/src/set.c */ = {isa = PBXBuildFile; fileRef = 6C4EA10AE6F24ADB8F32BB19 /* /Users/thahnen/GitHub/libSet/libSet/src/set.c */; };
+		6F1D24B9D3DC4ACAA4BA443B /* /Users/thahnen/GitHub/libSet/libSet/include/set.h */ = {isa = PBXBuildFile; fileRef = 25FB765F026E4587A410CFCF /* /Users/thahnen/GitHub/libSet/libSet/include/set.h */; };
+		7905F1F778DE4A13A84B732F /* /Users/thahnen/GitHub/libSet/libSet/samples/Test.c */ = {isa = PBXBuildFile; fileRef = 8E3E32E9C2854E84A7C4F957 /* /Users/thahnen/GitHub/libSet/libSet/samples/Test.c */; };
+		9BBB1504F44C471399F17BDC /* /Users/thahnen/GitHub/libSet/libSet/include/type.h */ = {isa = PBXBuildFile; fileRef = CA9B4927BACE4B06846F852E /* /Users/thahnen/GitHub/libSet/libSet/include/type.h */; };
+		9D0C6202DC634375B1539733 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = B286E9A43DB2477293F4CF9E /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */; };
+		C726EF822AD54FC0A323A252 /* /Users/thahnen/GitHub/libSet/libSet/include/ll.h */ = {isa = PBXBuildFile; fileRef = 3569E77B53AB468287D026C1 /* /Users/thahnen/GitHub/libSet/libSet/include/ll.h */; };
+		D5C2B6716CF242E9A341853C /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = A2EEC1663D1D46FC9A7BDC01 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		38AA33F56BA144DBBBCC2B9A /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		52F22A8142EB4EB8B39E3953 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		605F02C58285436AB3E9F8A8 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		D8E043465C6C4E4C8A819523 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		1C1CB65906AD4838AFB57229 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A14113FDDA3541208584DEFF;
+			remoteInfo = ZERO_CHECK;
+		};
+		1EA2D9B62BEA485DAD6B32E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CB862E92F1C4688A6ABA0A0;
+			remoteInfo = Set;
+		};
+		474A7ADFDFC34293998C85DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CB862E92F1C4688A6ABA0A0;
+			remoteInfo = Set;
+		};
+		4D41D127FC7C4C5B9D352B22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 29FFAC89298C49ECA5EBFCA2;
+			remoteInfo = ALL_BUILD;
+		};
+		ACB08142137944D4ABABFD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7343A6457B434459A81748CE;
+			remoteInfo = libSet_Test;
+		};
+		DAC36B66B69D4B2AB4006DA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A14113FDDA3541208584DEFF;
+			remoteInfo = ZERO_CHECK;
+		};
+		F32E3BA96279495B9B306056 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 313FFB47C1F34A89A2175FFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A14113FDDA3541208584DEFF;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1216191CF1274629969F5015 /* Set */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libSet.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		25FB765F026E4587A410CFCF /* /Users/thahnen/GitHub/libSet/libSet/include/set.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = set.h; path = include/set.h; sourceTree = SOURCE_ROOT; };
+		3569E77B53AB468287D026C1 /* /Users/thahnen/GitHub/libSet/libSet/include/ll.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ll.h; path = include/ll.h; sourceTree = SOURCE_ROOT; };
+		6C4EA10AE6F24ADB8F32BB19 /* /Users/thahnen/GitHub/libSet/libSet/src/set.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = set.c; path = src/set.c; sourceTree = SOURCE_ROOT; };
+		8E3E32E9C2854E84A7C4F957 /* /Users/thahnen/GitHub/libSet/libSet/samples/Test.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = Test.c; path = samples/Test.c; sourceTree = SOURCE_ROOT; };
+		A2EEC1663D1D46FC9A7BDC01 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		A4711E3BA4034536AACBE5C5 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		A9C0FA70C96E4550BB204627 /* libSet_Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = libSet_Test; sourceTree = BUILT_PRODUCTS_DIR; };
+		B286E9A43DB2477293F4CF9E /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		CA9B4927BACE4B06846F852E /* /Users/thahnen/GitHub/libSet/libSet/include/type.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = type.h; path = include/type.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E331B609147D4921A822BA2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3E1A22598AE497084333ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		30429C8FB3F54F03B8E24779 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1216191CF1274629969F5015 /* Set */,
+				A9C0FA70C96E4550BB204627 /* libSet_Test */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		324E0D9A38D749A9BAF9392F = {
+			isa = PBXGroup;
+			children = (
+				FFFF6C6026FB42AD82DBDDF7 /* libSet_Test */,
+				4DE3DD4C24094296991580D2 /* Set */,
+				BD45542501784531BE87F011 /* ALL_BUILD */,
+				30429C8FB3F54F03B8E24779 /* Products */,
+				46EE1DD2CF4649FDAA2446B2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		37322A5EFA99493A902DCE75 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		46EE1DD2CF4649FDAA2446B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DE3DD4C24094296991580D2 /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				FE2F009B6AEC4A1086E5ED70 /* Header Files */,
+				AD462AA87B6047B58C90545C /* Source Files */,
+				A2EEC1663D1D46FC9A7BDC01 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */,
+			);
+			name = Set;
+			sourceTree = "<group>";
+		};
+		62AEBB4D48A04F7A8608C8E3 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E32E9C2854E84A7C4F957 /* /Users/thahnen/GitHub/libSet/libSet/samples/Test.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		AD462AA87B6047B58C90545C /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C4EA10AE6F24ADB8F32BB19 /* /Users/thahnen/GitHub/libSet/libSet/src/set.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		BD45542501784531BE87F011 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				37322A5EFA99493A902DCE75 /* CMake Rules */,
+				A4711E3BA4034536AACBE5C5 /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		FE2F009B6AEC4A1086E5ED70 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				3569E77B53AB468287D026C1 /* /Users/thahnen/GitHub/libSet/libSet/include/ll.h */,
+				25FB765F026E4587A410CFCF /* /Users/thahnen/GitHub/libSet/libSet/include/set.h */,
+				CA9B4927BACE4B06846F852E /* /Users/thahnen/GitHub/libSet/libSet/include/type.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		FFFF6C6026FB42AD82DBDDF7 /* libSet_Test */ = {
+			isa = PBXGroup;
+			children = (
+				62AEBB4D48A04F7A8608C8E3 /* Source Files */,
+				B286E9A43DB2477293F4CF9E /* /Users/thahnen/GitHub/libSet/libSet/CMakeLists.txt */,
+			);
+			name = libSet_Test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7343A6457B434459A81748CE /* libSet_Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D70FFB1593314241BA5FDBE2 /* Build configuration list for PBXNativeTarget "libSet_Test" */;
+			buildPhases = (
+				025F4C346FFD429F89A0D0C1 /* Sources */,
+				E3E1A22598AE497084333ED0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF20E30EAF224826A04F1DE2 /* PBXTargetDependency */,
+				B6805F8A917B45E8B89F4711 /* PBXTargetDependency */,
+			);
+			name = libSet_Test;
+			productName = libSet_Test;
+			productReference = A9C0FA70C96E4550BB204627 /* libSet_Test */;
+			productType = "com.apple.product-type.tool";
+		};
+		8CB862E92F1C4688A6ABA0A0 /* Set */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87473806F52A4871A3226985 /* Build configuration list for PBXNativeTarget "Set" */;
+			buildPhases = (
+				4A7B085E2BB24E74A6AD217A /* Sources */,
+				E331B609147D4921A822BA2F /* Frameworks */,
+				FBC62681803DB6B941376BE6 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				172797F5648D4635A81D299C /* PBXTargetDependency */,
+			);
+			name = Set;
+			productName = Set;
+			productReference = 1216191CF1274629969F5015 /* Set */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		313FFB47C1F34A89A2175FFA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = CEFDC6A348AD4C35B07A24DC /* Build configuration list for PBXProject "Set" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				605F02C58285436AB3E9F8A8 /* Debug */,
+				52F22A8142EB4EB8B39E3953 /* Release */,
+				D8E043465C6C4E4C8A819523 /* MinSizeRel */,
+				38AA33F56BA144DBBBCC2B9A /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 324E0D9A38D749A9BAF9392F;
+			projectDirPath = .;
+			projectRoot = "";
+			targets = (
+				29FFAC89298C49ECA5EBFCA2 /* ALL_BUILD */,
+				8CB862E92F1C4688A6ABA0A0 /* Set */,
+				A14113FDDA3541208584DEFF /* ZERO_CHECK */,
+				02AA4201EA0A449E9C5227BB /* install */,
+				7343A6457B434459A81748CE /* libSet_Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C0110FC8322DE7E50886E21 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		750477CE357266846AF9ECB1 /* Generate CMakeFiles/ZERO_CHECK */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ZERO_CHECK";
+			outputPaths = (
+/Users/thahnen/GitHub/libSet/libSet/CMakeFiles/ZERO_CHECK			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  make -f /Users/thahnen/GitHub/libSet/libSet/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  make -f /Users/thahnen/GitHub/libSet/libSet/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  make -f /Users/thahnen/GitHub/libSet/libSet/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  make -f /Users/thahnen/GitHub/libSet/libSet/CMakeScripts/ReRunCMake.make
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		87AF4882E018677E2624B544 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		93426DA6A4AC2C2AC9CE883C /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -DBUILD_TYPE=$CONFIGURATION$EFFECTIVE_PLATFORM_NAME -P cmake_install.cmake
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -DBUILD_TYPE=$CONFIGURATION$EFFECTIVE_PLATFORM_NAME -P cmake_install.cmake
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -DBUILD_TYPE=$CONFIGURATION$EFFECTIVE_PLATFORM_NAME -P cmake_install.cmake
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -DBUILD_TYPE=$CONFIGURATION$EFFECTIVE_PLATFORM_NAME -P cmake_install.cmake
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		9B50530E35CC49C82C2FACCF = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		D1D5D84D40719703F78E126C /* Generate CMakeFiles/ALL_BUILD */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ALL_BUILD";
+			outputPaths = (
+/Users/thahnen/GitHub/libSet/libSet/CMakeFiles/ALL_BUILD			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  echo Build\\ all\\ projects
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		FBC62681803DB6B941376BE6 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -E cmake_symlink_library /Users/thahnen/GitHub/libSet/libSet/Debug/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/Debug/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/Debug/libSet.dylib
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -E cmake_symlink_library /Users/thahnen/GitHub/libSet/libSet/Release/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/Release/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/Release/libSet.dylib
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -E cmake_symlink_library /Users/thahnen/GitHub/libSet/libSet/MinSizeRel/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/MinSizeRel/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/MinSizeRel/libSet.dylib
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/thahnen/GitHub/libSet/libSet
+  /usr/local/Cellar/cmake/3.20.2/bin/cmake -E cmake_symlink_library /Users/thahnen/GitHub/libSet/libSet/RelWithDebInfo/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/RelWithDebInfo/libSet.1.6.0.dylib /Users/thahnen/GitHub/libSet/libSet/RelWithDebInfo/libSet.dylib
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		025F4C346FFD429F89A0D0C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7905F1F778DE4A13A84B732F /* /Users/thahnen/GitHub/libSet/libSet/samples/Test.c */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A7B085E2BB24E74A6AD217A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E98193829714A1C907EBA83 /* /Users/thahnen/GitHub/libSet/libSet/src/set.c */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		172797F5648D4635A81D299C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A14113FDDA3541208584DEFF /* ZERO_CHECK */;
+			targetProxy = 1C1CB65906AD4838AFB57229 /* PBXContainerItemProxy */;
+		};
+		2DFC88F17DCD478CA7E2542E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7343A6457B434459A81748CE /* libSet_Test */;
+			targetProxy = ACB08142137944D4ABABFD59 /* PBXContainerItemProxy */;
+		};
+		3AF5E1912950430692CCCC9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CB862E92F1C4688A6ABA0A0 /* Set */;
+			targetProxy = 474A7ADFDFC34293998C85DB /* PBXContainerItemProxy */;
+		};
+		6F7BBDB74E544574BF9F6C4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A14113FDDA3541208584DEFF /* ZERO_CHECK */;
+			targetProxy = F32E3BA96279495B9B306056 /* PBXContainerItemProxy */;
+		};
+		A05467F3681644C6A65B93FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 29FFAC89298C49ECA5EBFCA2 /* ALL_BUILD */;
+			targetProxy = 4D41D127FC7C4C5B9D352B22 /* PBXContainerItemProxy */;
+		};
+		AF20E30EAF224826A04F1DE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A14113FDDA3541208584DEFF /* ZERO_CHECK */;
+			targetProxy = DAC36B66B69D4B2AB4006DA5 /* PBXContainerItemProxy */;
+		};
+		B6805F8A917B45E8B89F4711 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CB862E92F1C4688A6ABA0A0 /* Set */;
+			targetProxy = 1EA2D9B62BEA485DAD6B32E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		17616162E61C42169E98E0FB /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		1C4224F049B94F46A201ED3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk;
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet/build;
+			};
+			name = Debug;
+		};
+		3B891D31EB6B4D09B306196F /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		42A1F88B18F248BF8D10C6F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = 1.6.0;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Set_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,"$(inherited)");
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CFLAGS = "-fPIC -fvisibility=hidden '-std=gnu11' ";
+				OTHER_LDFLAGS = (" -dynamiclib -Wl,-headerpad_max_install_names");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Set.1.6.0;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		475DE146753B41ABBBBDB156 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk;
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet/build;
+			};
+			name = MinSizeRel;
+		};
+		5B47B199FC8B4F339E503B84 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,/usr/local/Cellar/check/0.15.2/include,"$(inherited)");
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/RelWithDebInfo,"$(inherited)");
+				OTHER_CFLAGS = "'-std=gnu11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/thahnen/GitHub/libSet/libSet/RelWithDebInfo/libSet.1.6.0.dylib,/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libSet_Test;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		6AF3DECA54734CBF83211562 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		79F899E5497649B2A975ECF0 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		7A362763541444B986B63EFD /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		80EAC44830454836AEB55FDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		82861EEF66084FEB89AEB14C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,/usr/local/Cellar/check/0.15.2/include,"$(inherited)");
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/Debug,"$(inherited)");
+				OTHER_CFLAGS = "'-std=gnu11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/thahnen/GitHub/libSet/libSet/Debug/libSet.1.6.0.dylib,/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libSet_Test;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		8C391D08770F4DC8895B982B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,/usr/local/Cellar/check/0.15.2/include,"$(inherited)");
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/Release,"$(inherited)");
+				OTHER_CFLAGS = "'-std=gnu11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/thahnen/GitHub/libSet/libSet/Release/libSet.1.6.0.dylib,/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libSet_Test;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		91443E1526F147EE9EB040B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk;
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet/build;
+			};
+			name = Release;
+		};
+		96A3A9B2B32B47AA855B74DC /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk;
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet/build;
+			};
+			name = RelWithDebInfo;
+		};
+		A0B4779987C74B1385CEA60D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = 1.6.0;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Set_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,"$(inherited)");
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CFLAGS = "-fPIC -fvisibility=hidden '-std=gnu11' ";
+				OTHER_LDFLAGS = (" -dynamiclib -Wl,-headerpad_max_install_names");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Set.1.6.0;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		A6CC156705844EB48BFDA660 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		A89360F4F37847F397A68FFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		B40D869A7A0241479D96BD4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		C1E560D299E645E992D7240E /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = 1.6.0;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Set_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,"$(inherited)");
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CFLAGS = "-fPIC -fvisibility=hidden '-std=gnu11' ";
+				OTHER_LDFLAGS = (" -dynamiclib -Wl,-headerpad_max_install_names");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Set.1.6.0;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		C5C8F3B5829644828E380532 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = 1.6.0;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Set_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,"$(inherited)");
+				INSTALL_PATH = "@rpath";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CFLAGS = "-fPIC -fvisibility=hidden '-std=gnu11' ";
+				OTHER_LDFLAGS = (" -dynamiclib -Wl,-headerpad_max_install_names");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Set.1.6.0;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		D1D669F611E9479EAD302DE5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		DB421C896F834A938B506FC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		E575C244C48C4C1F845730AF /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/./include,/usr/local/Cellar/check/0.15.2/include,"$(inherited)");
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = (/Users/thahnen/GitHub/libSet/libSet/MinSizeRel,"$(inherited)");
+				OTHER_CFLAGS = "'-std=gnu11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/thahnen/GitHub/libSet/libSet/MinSizeRel/libSet.1.6.0.dylib,/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libSet_Test;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		EC31FB608B7E478C9B88255F /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/thahnen/GitHub/libSet/libSet;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B31FB8EE6264B7688B8AD77 /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B40D869A7A0241479D96BD4F /* Debug */,
+				A89360F4F37847F397A68FFC /* Release */,
+				D1D669F611E9479EAD302DE5 /* MinSizeRel */,
+				7A362763541444B986B63EFD /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		87473806F52A4871A3226985 /* Build configuration list for PBXNativeTarget "Set" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0B4779987C74B1385CEA60D /* Debug */,
+				42A1F88B18F248BF8D10C6F2 /* Release */,
+				C5C8F3B5829644828E380532 /* MinSizeRel */,
+				C1E560D299E645E992D7240E /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C42BC96E63744C59900F8DE5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80EAC44830454836AEB55FDF /* Debug */,
+				A6CC156705844EB48BFDA660 /* Release */,
+				3B891D31EB6B4D09B306196F /* MinSizeRel */,
+				79F899E5497649B2A975ECF0 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CEFDC6A348AD4C35B07A24DC /* Build configuration list for PBXProject "Set" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C4224F049B94F46A201ED3C /* Debug */,
+				91443E1526F147EE9EB040B9 /* Release */,
+				475DE146753B41ABBBBDB156 /* MinSizeRel */,
+				96A3A9B2B32B47AA855B74DC /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D70FFB1593314241BA5FDBE2 /* Build configuration list for PBXNativeTarget "libSet_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82861EEF66084FEB89AEB14C /* Debug */,
+				8C391D08770F4DC8895B982B /* Release */,
+				E575C244C48C4C1F845730AF /* MinSizeRel */,
+				5B47B199FC8B4F339E503B84 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DB791458BD1345728F3C808E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6AF3DECA54734CBF83211562 /* Debug */,
+				DB421C896F834A938B506FC1 /* Release */,
+				EC31FB608B7E478C9B88255F /* MinSizeRel */,
+				17616162E61C42169E98E0FB /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 313FFB47C1F34A89A2175FFA /* Project object */;
+}

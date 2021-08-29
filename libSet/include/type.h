@@ -66,8 +66,6 @@ typedef struct {
  *
  *  @param type     the enum item to get the data type size of
  *  @return         returns the data type size or 0
- *
- *  TODO: maybe change to macro using typeof(?)
  */
 size_t getSize(TYPE type) {
     switch (type) {
@@ -77,6 +75,8 @@ size_t getSize(TYPE type) {
         case UINT16:    return sizeof(uint16_t);
         case INT32:     return sizeof(int32_t);
         case UINT32:    return sizeof(uint32_t);
+        case INT64:     return sizeof(int64_t);
+        case UINT64:    return sizeof(uint64_t);
         case FLOAT32:   return sizeof(float32);
         case FLOAT64:   return sizeof(float64);
         case PAIR:      return sizeof(Pair);

@@ -75,57 +75,53 @@ set_create_f(64)
  *  @return         true if operation successful, false otherwise
  *
  *  TODO: add pair support
- *  TODO: add to empty set
  */
 static bool set_add_(set* restrict cur, void* restrict value, TYPE type) {
-    // 1) Check if set pointer is not null
-    if (cur == NULL) return false;
+    // 1) check if set / value pointer is null or type is NONE
+    if (cur == NULL || value == NULL || type == NONE) return false;
+    
+    // 2) if set is empty create new set of given type and return success
+    if (cur->type == NONE) {
+        *cur = *set_create_(value, type);
+        return true;
+    }
+    
+    // 3) check if types of set and new value doesn't match
+    //    TODO: Maybe handle in future using maximum of both types!
+    if (cur->type != type) return false;
 
-    // 2) check if set type equals type of new value
-    if (cur->type != type && cur->type != NONE) return false;
-
-    // 3) check if value already in set
+    // 4) check if value already in set
     node_t* curNode = cur->root;
-    if (curNode != NONE) {
-        while (curNode->next != NULL) {
-            switch (type) {
-            case INT8:
-            case UINT8:
-                if (*(int8_t*)curNode->data == *(int8_t*)value)     return true;
-                break;
-            case INT16:
-            case UINT16:
-                if (*(int16_t*)curNode->data == *(int16_t*)value)   return true;
-                break;
-            case INT32:
-            case UINT32:
-            case FLOAT32:
-                if (*(int32_t*)curNode->data == *(int32_t*)value)   return true;
-                break;
-            case INT64:
-            case UINT64:
-            case FLOAT64:
-                if (*(int64_t*)curNode->data == *(int64_t*)value)   return true;
-                break;
-            case PAIR:
-                // not implemented yet
-                return false;
-            }
-
-            curNode = curNode->next;
+    while (curNode->next != NULL) {
+        switch (type) {
+        case INT8:
+        case UINT8:
+            if (*(int8_t*)curNode->data == *(int8_t*)value)     return true;
+            break;
+        case INT16:
+        case UINT16:
+            if (*(int16_t*)curNode->data == *(int16_t*)value)   return true;
+            break;
+        case INT32:
+        case UINT32:
+        case FLOAT32:
+            if (*(int32_t*)curNode->data == *(int32_t*)value)   return true;
+            break;
+        case INT64:
+        case UINT64:
+        case FLOAT64:
+            if (*(int64_t*)curNode->data == *(int64_t*)value)   return true;
+            break;
+        default:
+            // pair not implemented yet & NONE impossible
+            return false;
         }
+
+        curNode = curNode->next;
     }
 
     // 4) value not in set, needs to be added
-    node_t* new = node_create(value, getSize(type));
-    if (cur->size == 0) {
-        cur->type = type;
-        cur->root = new;
-
-        return true;
-    }
-
-    curNode->next = new;
+    curNode->next = node_create(value, getSize(type));
     cur->size++;
 
     return true;
@@ -166,7 +162,7 @@ set_add_f(64)
 
 #define set_min_i(powerOfTwo) \
     bool set_min_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -179,7 +175,7 @@ set_add_f(64)
 
 #define set_min_u(powerOfTwo) \
     bool set_min_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -192,7 +188,7 @@ set_add_f(64)
 
 #define set_min_f(powerOfTwo) \
     bool set_min_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
-        if (cur == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -222,7 +218,7 @@ set_min_f(64)
 
 #define set_max_i(powerOfTwo) \
     bool set_max_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -234,7 +230,7 @@ set_min_f(64)
 
 #define set_max_u(powerOfTwo) \
     bool set_max_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -246,7 +242,7 @@ set_min_f(64)
 
 #define set_max_f(powerOfTwo) \
     bool set_max_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
-        if (cur == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+        if (cur == NULL || result == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \

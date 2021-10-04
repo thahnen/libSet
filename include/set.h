@@ -132,20 +132,20 @@ DLL bool set_add_f64(NOT$NULL set* cur, float64 value);
         float32* : set_min_f32, float64* : set_min_f64 \
 ) (X, Y)
 
-DLL inline bool set_min_i8(NOT$NULL set* cur, NOT$NULL int8_t* result);
-DLL inline bool set_min_u8(NOT$NULL set* cur, NOT$NULL uint8_t* result);
+DLL bool set_min_i8(NOT$NULL set* cur, NOT$NULL int8_t* result);
+DLL bool set_min_u8(NOT$NULL set* cur, NOT$NULL uint8_t* result);
 
-DLL inline bool set_min_i16(NOT$NULL set* cur, NOT$NULL int16_t* result);
-DLL inline bool set_min_u16(NOT$NULL set* cur, NOT$NULL uint16_t* result);
+DLL bool set_min_i16(NOT$NULL set* cur, NOT$NULL int16_t* result);
+DLL bool set_min_u16(NOT$NULL set* cur, NOT$NULL uint16_t* result);
 
-DLL inline bool set_min_i32(NOT$NULL set* cur, NOT$NULL int32_t* result);
-DLL inline bool set_min_u32(NOT$NULL set* cur, NOT$NULL uint32_t* result);
+DLL bool set_min_i32(NOT$NULL set* cur, NOT$NULL int32_t* result);
+DLL bool set_min_u32(NOT$NULL set* cur, NOT$NULL uint32_t* result);
 
-DLL inline bool set_min_i64(NOT$NULL set* cur, NOT$NULL int64_t* result);
-DLL inline bool set_min_u64(NOT$NULL set* cur, NOT$NULL uint64_t* result);
+DLL bool set_min_i64(NOT$NULL set* cur, NOT$NULL int64_t* result);
+DLL bool set_min_u64(NOT$NULL set* cur, NOT$NULL uint64_t* result);
 
-DLL inline bool set_min_f32(NOT$NULL set* cur, NOT$NULL float32* result);
-DLL inline bool set_min_f64(NOT$NULL set* cur, NOT$NULL float64* result);
+DLL bool set_min_f32(NOT$NULL set* cur, NOT$NULL float32* result);
+DLL bool set_min_f64(NOT$NULL set* cur, NOT$NULL float64* result);
 
 
 /**

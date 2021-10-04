@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(Set
-        VERSION         1.6.1
+        VERSION         1.6.2
         DESCRIPTION     "Simple shared library for (ordered) sets and their functions"
         HOMEPAGE_URL    "https://github.com/thahnen/libSet"
         LANGUAGES       C)
@@ -49,7 +49,10 @@ add_executable(libSet_Unittest
         tests/Unittests.h
         tests/Unittests.c
         tests/test_set_empty.c
-        tests/test_set_create.c)
+        tests/test_set_create.c
+        tests/test_set_add.c
+        tests/test_set_min.c
+        tests/test_set_max.c)
 
 target_include_directories(libSet_Unittest PUBLIC "/usr/local/Cellar/check/0.15.2/include")
 target_link_libraries(libSet_Unittest Set "/usr/local/Cellar/check/0.15.2/lib/libcheck.dylib")

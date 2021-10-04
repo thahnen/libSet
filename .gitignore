@@ -15,8 +15,8 @@ cmake-build-*/
 .vscode/
 
 **/.DS_STORE
-libSet/libSetConfig.cmake
-libSet/build
-libSet/Debug
-libSet/Set.build/
+libSetConfig.cmake
+build
+Debug
+Set.build/
 logs/

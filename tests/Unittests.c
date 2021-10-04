@@ -14,6 +14,9 @@ void init_unittests(void) {
     // add test cases to suite
     empty_testcases();
     create_testcases();
+    add_testcases();
+    min_testcases();
+    max_testcases();
 }
 
 

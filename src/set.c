@@ -61,10 +61,10 @@ static bool elementOf(NOT$NULL set* other_set, NOT$NULL void* data, TYPE type) {
     node_t* curNode = other_set->root;
 
     do {
-        if (type == INT8 || type == UINT8)                           { if ((*(int8_t*)curNode->data)  == (*(int8_t*)data))  return true; } \
-        else if (type == INT16 || type == UINT16)                    { if ((*(int16_t*)curNode->data) == (*(int16_t*)data)) return true; } \
-        else if (type == INT32 || type == UINT32 || type == FLOAT32) { if ((*(int32_t*)curNode->data) == (*(int32_t*)data)) return true; } \
-        else if (type == INT64 || type == UINT64 || type == FLOAT64) { if ((*(int64_t*)curNode->data) == (*(int64_t*)data)) return true; } \
+        if (type == INT8 || type == UINT8)                           { if ((*(int8_t*)curNode->data)  == (*(int8_t*)data))  return true; }
+        else if (type == INT16 || type == UINT16)                    { if ((*(int16_t*)curNode->data) == (*(int16_t*)data)) return true; }
+        else if (type == INT32 || type == UINT32 || type == FLOAT32) { if ((*(int32_t*)curNode->data) == (*(int32_t*)data)) return true; }
+        else if (type == INT64 || type == UINT64 || type == FLOAT64) { if ((*(int64_t*)curNode->data) == (*(int64_t*)data)) return true; }
         
         curNode = curNode->next;
     } while (curNode);

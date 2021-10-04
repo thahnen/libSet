@@ -6,12 +6,83 @@
 #include "set.h"
 
 
+/* ==============================================================================================
+                                    HELPER FUNCTIONS & MACROS
+   ============================================================================================== */
+
+/**
+ *  Creates a deep copy of a set
+ *
+ *  @param input set to be copied
+ *  @return true if element contained in set, false otherwise
+ *
+ *  TODO: Add support for pair!
+ */
+static set* deepCopy(NOT$NULL set* input) {
+    set* output = set_empty();
+    
+    TYPE type = input->type;
+    if (type != NONE) {
+        node_t* curNode = input->root;
+        
+        do {
+            switch(type) {
+                case INT8:    set_add_i8(output,  *(int8_t*)curNode->data);   break;
+                case UINT8:   set_add_u8(output,  *(uint8_t*)curNode->data);  break;
+                case INT16:   set_add_i16(output, *(int16_t*)curNode->data);  break;
+                case UINT16:  set_add_u16(output, *(uint16_t*)curNode->data); break;
+                case INT32:   set_add_i32(output, *(int32_t*)curNode->data);  break;
+                case UINT32:  set_add_u32(output, *(uint32_t*)curNode->data); break;
+                case INT64:   set_add_i64(output, *(int64_t*)curNode->data);  break;
+                case UINT64:  set_add_u64(output, *(uint64_t*)curNode->data); break;
+                case FLOAT32: set_add_f32(output, *(float32*)curNode->data);  break;
+                case FLOAT64: set_add_f64(output, *(float64*)curNode->data);  break;
+            }
+            
+            curNode = curNode->next;
+        } while (curNode);
+    }
+    
+    return output;
+}
+
+
+/**
+ *  Checks if a element is containd in set
+ *
+ *  @param other_set void pointer to the item to use on creation
+ *  @param data the elements data to check agains
+ *  @param type the maximum type, NONE / PAIR is not allowed
+ *  @return true if element contained in set, false otherwise
+ *
+ *  TODO: Add support for pair!
+ */
+static bool elementOf(NOT$NULL set* other_set, NOT$NULL void* data, TYPE type) {
+    node_t* curNode = other_set->root;
+
+    do {
+        if (type == INT8 || type == UINT8)                           { if ((*(int8_t*)curNode->data)  == (*(int8_t*)data))  return true; } \
+        else if (type == INT16 || type == UINT16)                    { if ((*(int16_t*)curNode->data) == (*(int16_t*)data)) return true; } \
+        else if (type == INT32 || type == UINT32 || type == FLOAT32) { if ((*(int32_t*)curNode->data) == (*(int32_t*)data)) return true; } \
+        else if (type == INT64 || type == UINT64 || type == FLOAT64) { if ((*(int64_t*)curNode->data) == (*(int64_t*)data)) return true; } \
+        
+        curNode = curNode->next;
+    } while (curNode);
+    
+    return false;
+}
+
+
+/* ==============================================================================================
+                                    ACTUAL IMPLEMENTATION
+   ============================================================================================== */
+
 /**
  *  Creates a new set with one value from given type
  *
- *  @param value    void pointer to the item to use on creation
- *  @param type     the type of the item behind the pointer
- *  @return         true if operation successful, false otherwise
+ *  @param value void pointer to the item to use on creation
+ *  @param type the type of the item behind the pointer
+ *  @return true if operation successful, false otherwise
  */
 static set* set_create_(void* value, TYPE type) {
     set* new = (set*) malloc(sizeof(set));
@@ -35,17 +106,17 @@ set* set_empty() {
 
 
 #define set_create_i(powerOfTwo) \
-    inline set* set_create_i##powerOfTwo (int##powerOfTwo##_t value) { \
+    set* set_create_i##powerOfTwo (int##powerOfTwo##_t value) { \
         return set_create_((void*) &value, INT##powerOfTwo ); \
     }
 
 #define set_create_u(powerOfTwo) \
-    inline set* set_create_u##powerOfTwo (uint##powerOfTwo##_t value) { \
+    set* set_create_u##powerOfTwo (uint##powerOfTwo##_t value) { \
         return set_create_((void*) &value, UINT##powerOfTwo ); \
     }
 
 #define set_create_f(powerOfTwo) \
-    inline set* set_create_f##powerOfTwo (float##powerOfTwo value) { \
+    set* set_create_f##powerOfTwo (float##powerOfTwo value) { \
         return set_create_((void*) &value, FLOAT##powerOfTwo ); \
     }
 
@@ -69,16 +140,16 @@ set_create_f(64)
 /**
  *  Adds a value to given set with given type
  *
- *  @param cur      the existing set to add to
- *  @param value    void pointer to the item to add
- *  @param type     the type of the item behind the pointer
- *  @return         true if operation successful, false otherwise
+ *  @param cur the existing set to add to
+ *  @param value void pointer to the item to add
+ *  @param type the type of the item behind the pointer
+ *  @return true if operation successful, false otherwise
  *
- *  TODO: add pair support
+ *  TODO: Add support for pair!
  */
-static bool set_add_(set* restrict cur, void* restrict value, TYPE type) {
-    // 1) check if set / value pointer is null or type is NONE
-    if (cur == NULL || value == NULL || type == NONE) return false;
+static bool set_add_(NOT$NULL set* restrict cur, NOT$NULL void* restrict value, TYPE type) {
+    // 1) type not allowed to be NONE
+    if (type == NONE) return false;
     
     // 2) if set is empty create new set of given type and return success
     if (cur->type == NONE) {
@@ -96,21 +167,21 @@ static bool set_add_(set* restrict cur, void* restrict value, TYPE type) {
         switch (type) {
         case INT8:
         case UINT8:
-            if (*(int8_t*)curNode->data == *(int8_t*)value)     return true;
+            if (*(int8_t*)curNode->data == *(int8_t*)value)   return true;
             break;
         case INT16:
         case UINT16:
-            if (*(int16_t*)curNode->data == *(int16_t*)value)   return true;
+            if (*(int16_t*)curNode->data == *(int16_t*)value) return true;
             break;
         case INT32:
         case UINT32:
         case FLOAT32:
-            if (*(int32_t*)curNode->data == *(int32_t*)value)   return true;
+            if (*(int32_t*)curNode->data == *(int32_t*)value) return true;
             break;
         case INT64:
         case UINT64:
         case FLOAT64:
-            if (*(int64_t*)curNode->data == *(int64_t*)value)   return true;
+            if (*(int64_t*)curNode->data == *(int64_t*)value) return true;
             break;
         default:
             // pair not implemented yet & NONE impossible
@@ -129,17 +200,17 @@ static bool set_add_(set* restrict cur, void* restrict value, TYPE type) {
 
 
 #define set_add_i(powerOfTwo) \
-    inline bool set_add_i##powerOfTwo (set* cur, int##powerOfTwo##_t value) { \
+    bool set_add_i##powerOfTwo (NOT$NULL set* cur, int##powerOfTwo##_t value) { \
         return set_add_(cur, (void*) &value, INT##powerOfTwo );\
     }
 
 #define set_add_u(powerOfTwo) \
-    inline bool set_add_u##powerOfTwo (set* cur, uint##powerOfTwo##_t value) { \
+    bool set_add_u##powerOfTwo (NOT$NULL set* cur, uint##powerOfTwo##_t value) { \
         return set_add_(cur, (void*) &value, UINT##powerOfTwo );\
     }
 
 #define set_add_f(powerOfTwo) \
-    inline bool set_add_f##powerOfTwo (set* cur, float##powerOfTwo value) { \
+    bool set_add_f##powerOfTwo (NOT$NULL set* cur, float##powerOfTwo value) { \
         return set_add_(cur, (void*) &value, FLOAT##powerOfTwo ); \
     }
 
@@ -161,7 +232,7 @@ set_add_f(64)
 
 
 #define set_min_i(powerOfTwo) \
-    bool set_min_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
+    bool set_min_i##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL int##powerOfTwo##_t* restrict result) { \
         if (cur == NULL || result == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -174,7 +245,7 @@ set_add_f(64)
     }
 
 #define set_min_u(powerOfTwo) \
-    bool set_min_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
+    bool set_min_u##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL uint##powerOfTwo##_t* restrict result) { \
         if (cur == NULL || result == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -187,7 +258,7 @@ set_add_f(64)
     }
 
 #define set_min_f(powerOfTwo) \
-    bool set_min_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
+    bool set_min_f##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL float##powerOfTwo * restrict result) { \
         if (cur == NULL || result == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -217,8 +288,8 @@ set_min_f(64)
 
 
 #define set_max_i(powerOfTwo) \
-    bool set_max_i##powerOfTwo (set* restrict cur, int##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+    bool set_max_i##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL int##powerOfTwo##_t* restrict result) { \
+        if (cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -229,8 +300,8 @@ set_min_f(64)
     }
 
 #define set_max_u(powerOfTwo) \
-    bool set_max_u##powerOfTwo (set* restrict cur, uint##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+    bool set_max_u##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL uint##powerOfTwo##_t* restrict result) { \
+        if (cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -241,8 +312,8 @@ set_min_f(64)
     }
 
 #define set_max_f(powerOfTwo) \
-    bool set_max_f##powerOfTwo (set* restrict cur, float##powerOfTwo * restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+    bool set_max_f##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL float##powerOfTwo * restrict result) { \
+        if (cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -271,29 +342,20 @@ set_max_f(64)
 
 
 /// Adds two sets together
-bool set_union(set* A, set* B, set* out) {
-    // Null-Pointer not allowed
-    if (out == NULL || (A == NULL && B == NULL)) {
-        return false;
-    }
-
-    // Both are empty or both are pairs
+bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+    // Return empty set if A and B is empty and return B if A is empty and return A if B is empty
     if (A->type == NONE && B->type == NONE) {
         *out = *set_empty();
         return true;
-    } else if (A->type == PAIR && B->type == PAIR) {
-        // Pairs not implemented yet!
+    } else if (A->type == NONE) {
+        *out = *deepCopy(B);
+        return true;
+    } else if (B->type == NONE) {
+        *out = *deepCopy(A);
+        return true;
+    } else if (A->type == PAIR || B->type == PAIR) {
+        // TODO: Pairs not implemented yet!
         return false;
-    }
-
-    // Only one is empty set
-    // TODO: maybe create deep copy?
-    if (A->type == NONE || A == NULL) {
-        *out = *B;
-        return true;
-    } else if (B->type == NONE || B == NULL) {
-        *out = *A;
-        return true;
     }
 
     // All other values!
@@ -301,85 +363,198 @@ bool set_union(set* A, set* B, set* out) {
     if (otype != NONE) {
         // 1) Create new set
         *out = *set_empty();
+        
+        // 2) define macro
+#define loop(element, output_set, type) \
+        do { \
+            switch(type) { \
+                case INT8:    set_add_i8(output_set,  *(int8_t*)element->data);   break; \
+                case UINT8:   set_add_u8(output_set,  *(uint8_t*)element->data);  break; \
+                case INT16:   set_add_i16(output_set, *(int16_t*)element->data);  break; \
+                case UINT16:  set_add_u16(output_set, *(uint16_t*)element->data); break; \
+                case INT32:   set_add_i32(output_set, *(int32_t*)element->data);  break; \
+                case UINT32:  set_add_u32(output_set, *(uint32_t*)element->data); break; \
+                case INT64:   set_add_i64(output_set, *(int64_t*)element->data);  break; \
+                case UINT64:  set_add_u64(output_set, *(uint64_t*)element->data); break; \
+                case FLOAT32: set_add_f32(output_set, *(float32*)element->data);  break; \
+                case FLOAT64: set_add_f64(output_set, *(float64*)element->data);  break; \
+            } \
+            element = element->next; \
+        } while (element);
 
-        // 2) Loop over A, adding values to new set
+        // 3) Loop over A, adding values to new set
         node_t* cur = A->root;
-        do {
-            switch (otype) {
-            case INT8:
-                set_add_i8(out, *(int8_t*)cur->data);
-                break;
-            case UINT8:
-                set_add_u8(out, *(uint8_t*)cur->data);
-                break;
-            case INT16:
-                set_add_i16(out, *(int16_t*)cur->data);
-                break;
-            case UINT16:
-                set_add_u16(out, *(uint16_t*)cur->data);
-                break;
-            case INT32:
-                set_add_i32(out, *(int32_t*)cur->data);
-                break;
-            case UINT32:
-                set_add_u32(out, *(uint32_t*)cur->data);
-                break;
-            case INT64:
-                set_add_i64(out, *(int64_t*)cur->data);
-                break;
-            case UINT64:
-                set_add_u64(out, *(uint64_t*)cur->data);
-                break;
-            case FLOAT32:
-                set_add_f32(out, *(float32*)cur->data);
-                break;
-            case FLOAT64:
-                set_add_f64(out, *(float64*)cur->data);
-            }
+        loop(cur, out, otype)
 
-            cur = cur->next;
-        } while (cur);
-
-        // 3) Loop over B, adding values to new set
+        // 4) Loop over B, adding values to new set
         cur = B->root;
-        do {
-            switch (otype) {
-            case INT8:
-                set_add_i8(out, *(int8_t*)cur->data);
-                break;
-            case UINT8:
-                set_add_u8(out, *(uint8_t*)cur->data);
-                break;
-            case INT16:
-                set_add_i16(out, *(int16_t*)cur->data);
-                break;
-            case UINT16:
-                set_add_u16(out, *(uint16_t*)cur->data);
-                break;
-            case INT32:
-                set_add_i32(out, *(int32_t*)cur->data);
-                break;
-            case UINT32:
-                set_add_u32(out, *(uint32_t*)cur->data);
-                break;
-            case INT64:
-                set_add_i64(out, *(int64_t*)cur->data);
-                break;
-            case UINT64:
-                set_add_u64(out, *(uint64_t*)cur->data);
-                break;
-            case FLOAT32:
-                set_add_f32(out, *(float32*)cur->data);
-                break;
-            case FLOAT64:
-                set_add_f64(out, *(float64*)cur->data);
-            }
-
-            cur = cur->next;
-        } while (cur);
+        loop(cur, out, otype)
+        
+        // 5) undefine macro
+#undef loop
 
         return true;
     }
 
+    return false;
+}
+
+
+/// intersects to sets
+bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+    // Return empty set if A or B is empty set
+    if (A->type == NONE || B->type == NONE) {
+        *out = *set_empty();
+        return true;
+    } else if (A->type == PAIR || B->type == PAIR) {
+        // TODO: Pairs not implemented yet!
+        return false;
+    }
+    
+    // Get maximum type
+    TYPE otype = max(A->type, B->type);
+    if (otype != NONE) {
+        // 1) create new set
+        *out = *set_empty();
+        
+        // 2) define macro
+#define loop(element, other_set, output_set, type) \
+        do { \
+            if (elementOf(other_set, element->data, type)) { \
+                switch(type) { \
+                    case INT8:    set_add_i8(output_set,  *(int8_t*)element->data);   break; \
+                    case UINT8:   set_add_u8(output_set,  *(uint8_t*)element->data);  break; \
+                    case INT16:   set_add_i16(output_set, *(int16_t*)element->data);  break; \
+                    case UINT16:  set_add_u16(output_set, *(uint16_t*)element->data); break; \
+                    case INT32:   set_add_i32(output_set, *(int32_t*)element->data);  break; \
+                    case UINT32:  set_add_u32(output_set, *(uint32_t*)element->data); break; \
+                    case INT64:   set_add_i64(output_set, *(int64_t*)element->data);  break; \
+                    case UINT64:  set_add_u64(output_set, *(uint64_t*)element->data); break; \
+                    case FLOAT32: set_add_f32(output_set, *(float32*)element->data);  break; \
+                    case FLOAT64: set_add_f64(output_set, *(float64*)element->data);  break; \
+                } \
+            } \
+            element = element->next; \
+        } while (element);
+        
+        // 3) loop over A
+        node_t* cur = A->root;
+        loop(cur, B, out, otype)
+        
+        // 4) loop over B
+        cur = B->root;
+        loop(cur, A, out, otype)
+        
+        // 5) undefine macro
+#undef loop
+        
+        return true;
+    }
+    
+    return false;
+}
+
+
+/// difference of two sets
+bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+    // Return empty set if A is empty and return A if B is empty
+    if (A->type == NONE) {
+        *out = *set_empty();
+        return true;
+    } else if (B->type == NONE) {
+        *out = *deepCopy(A);
+        return true;
+    } else if (A->type == PAIR || B->type == PAIR) {
+        // TODO: Pairs not implemented yet!
+        return false;
+    }
+    
+    // Get maximum type
+    TYPE otype = max(A->type, B->type);
+    if (otype != NONE) {
+        // 1) create new set
+        *out = *set_empty();
+        
+        // 2) loop over A
+        node_t* cur = A->root;
+        do {
+            if (!elementOf(out, cur->data, otype)) {
+                switch(otype) {
+                    case INT8:    set_add_i8(out,  *(int8_t*)cur->data);   break;
+                    case UINT8:   set_add_u8(out,  *(uint8_t*)cur->data);  break;
+                    case INT16:   set_add_i16(out, *(int16_t*)cur->data);  break;
+                    case UINT16:  set_add_u16(out, *(uint16_t*)cur->data); break;
+                    case INT32:   set_add_i32(out, *(int32_t*)cur->data);  break;
+                    case UINT32:  set_add_u32(out, *(uint32_t*)cur->data); break;
+                    case INT64:   set_add_i64(out, *(int64_t*)cur->data);  break;
+                    case UINT64:  set_add_u64(out, *(uint64_t*)cur->data); break;
+                    case FLOAT32: set_add_f32(out, *(float32*)cur->data);  break;
+                    case FLOAT64: set_add_f64(out, *(float64*)cur->data);  break;
+                }
+            }
+            
+            cur = cur->next;
+        } while (cur);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+
+/// symmetric difference of two sets
+bool set_symdifference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+    // Return B if A is empty and return A if B is empty
+    if (A->type == NONE) {
+        *out = *deepCopy(B);
+        return true;
+    } else if (B->type == NONE) {
+        *out = *deepCopy(A);
+        return true;
+    } else if (A->type == PAIR || B->type == PAIR) {
+        return false;
+    }
+    
+    // Get maximum type
+    TYPE otype = max(A->type, B->type);
+    if (otype != NONE) {
+        // 1) create new set
+        *out = *set_empty();
+        
+        // 2) define macro
+#define loop(element, other_set, output_set, type) \
+        do { \
+            if (!elementOf(other_set, element->data, type)) { \
+                switch(type) { \
+                    case INT8:    set_add_i8(output_set,  *(int8_t*)element->data);   break; \
+                    case UINT8:   set_add_u8(output_set,  *(uint8_t*)element->data);  break; \
+                    case INT16:   set_add_i16(output_set, *(int16_t*)element->data);  break; \
+                    case UINT16:  set_add_u16(output_set, *(uint16_t*)element->data); break; \
+                    case INT32:   set_add_i32(output_set, *(int32_t*)element->data);  break; \
+                    case UINT32:  set_add_u32(output_set, *(uint32_t*)element->data); break; \
+                    case INT64:   set_add_i64(output_set, *(int64_t*)element->data);  break; \
+                    case UINT64:  set_add_u64(output_set, *(uint64_t*)element->data); break; \
+                    case FLOAT32: set_add_f32(output_set, *(float32*)element->data);  break; \
+                    case FLOAT64: set_add_f64(output_set, *(float64*)element->data);  break; \
+                } \
+            } \
+            element = element->next; \
+        } while (element);
+        
+        // 3) loop over A
+        node_t* cur = A->root;
+        loop(cur, B, out, otype)
+        
+        // 4) loop over B
+        cur = B->root;
+        loop(cur, A, out, otype)
+        
+        // 5) undefine macro
+#undef loop
+        
+        return true;
+    }
+    
     return false;
 }

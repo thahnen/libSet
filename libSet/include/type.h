@@ -2,6 +2,7 @@
 // Created by thahnen on 13.02.20.
 //
 
+#pragma once
 #ifndef SET_TYPE_H
 #define SET_TYPE_H
 
@@ -67,7 +68,7 @@ typedef struct {
  *  @param type     the enum item to get the data type size of
  *  @return         returns the data type size or 0
  */
-size_t getSize(TYPE type) {
+static size_t getSize(TYPE type) {
     switch (type) {
         case INT8:      return sizeof(int8_t);
         case UINT8:     return sizeof(uint8_t);
@@ -95,7 +96,7 @@ size_t getSize(TYPE type) {
  *
  *  TODO: maybe change rules converting integers to floating point variables
  */
-TYPE max(TYPE a, TYPE b) {
+static TYPE max(TYPE a, TYPE b) {
     bool a_case = a == NONE;
     bool b_case = b == NONE;
     if (a_case || b_case) {

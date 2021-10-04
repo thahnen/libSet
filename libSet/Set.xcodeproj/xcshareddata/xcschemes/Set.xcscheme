@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8CB862E92F1C4688A6ABA0A0"
-               BuildableName = "libSet.1.6.0.dylib"
+               BuildableName = "libSet.1.6.1.dylib"
                BlueprintName = "Set"
                ReferencedContainer = "container:Set.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8CB862E92F1C4688A6ABA0A0"
-            BuildableName = "libSet.1.6.0.dylib"
+            BuildableName = "libSet.1.6.1.dylib"
             BlueprintName = "Set"
             ReferencedContainer = "container:Set.xcodeproj">
          </BuildableReference>

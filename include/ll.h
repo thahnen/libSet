@@ -14,7 +14,18 @@
                                     HELPER FUNCTIONS & MACROS
    ============================================================================================== */
 
-#define NOT$NULL
+#if defined(__clang__)
+#   define NONNULL(arr)     __attribute__ ((nonnull arr))
+#   define NONNULLRETURN    __attribute__ ((returns_nonnull))
+#   define NULLABLE         _Nullable
+#elif defined(__GNUC__)
+#   define NONNULL(arr)     __attribute__ ((nonnull arr))
+#   define NONNULLRETURN
+#   define NULLABLE
+#else
+#   define NONNULL(arr)
+#   define NULLABLE
+#endif
 
 
 /* ==============================================================================================
@@ -28,13 +39,18 @@ typedef struct node {
 } node_t;
 
 
+// forward definition
+static node_t* node_create(void* ndata, size_t size) NONNULL((1)) NONNULLRETURN;
+static node_t* node_delete(node_t* cur) NONNULL((1));
+
+
 /**
  *  Creates a new node for the set
  *
  *  @param ndata    void pointer to given data (to make it more generic)
  *  @return         new node holding the given data, has no successor
  */
-static node_t* node_create(NOT$NULL void* ndata, size_t size) {
+static node_t* node_create(void* ndata, size_t size) {
     node_t* new = (node_t*) malloc(sizeof(node_t));
     new->next = NULL;
 
@@ -52,7 +68,7 @@ static node_t* node_create(NOT$NULL void* ndata, size_t size) {
  *  @param cur      the node to delete
  *  @return         the next node
  */
-static node_t* node_delete(NOT$NULL node_t* cur) {
+static node_t* node_delete(node_t* cur) {
     node_t* next = cur->next;
     free(cur->data);
     cur->data = NULL;

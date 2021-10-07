@@ -29,7 +29,7 @@
 #include "type.h"
 
 
-// TODO: add preprocessor attribute (packed on memory efficiency, not packed on speed efficiency)
+// TODO: Add preprocessor symbol (packed on memory efficiency, not packed on speed efficiency)
 typedef struct __attribute__ ((packed)) {
     unsigned long size;
     TYPE type;
@@ -43,7 +43,7 @@ typedef struct __attribute__ ((packed)) {
  *
  *  @return a empty set containing zero items
  */
-DLL set* set_empty();
+DLL set* set_empty() NONNULLRETURN;
 
 
 /**
@@ -63,20 +63,20 @@ DLL set* set_empty();
         default: set_create_i32 \
 ) (X)
 
-DLL set* set_create_i8(int8_t value);
-DLL set* set_create_u8(uint8_t value);
+DLL set* set_create_i8(int8_t value) NONNULLRETURN;
+DLL set* set_create_u8(uint8_t value) NONNULLRETURN;
 
-DLL set* set_create_i16(int16_t value);
-DLL set* set_create_u16(uint16_t value);
+DLL set* set_create_i16(int16_t value) NONNULLRETURN;
+DLL set* set_create_u16(uint16_t value) NONNULLRETURN;
 
-DLL set* set_create_i32(int32_t value);
-DLL set* set_create_u32(uint32_t value);
+DLL set* set_create_i32(int32_t value) NONNULLRETURN;
+DLL set* set_create_u32(uint32_t value) NONNULLRETURN;
 
-DLL set* set_create_i64(int64_t value);
-DLL set* set_create_u64(uint64_t value);
+DLL set* set_create_i64(int64_t value) NONNULLRETURN;
+DLL set* set_create_u64(uint64_t value) NONNULLRETURN;
 
-DLL set* set_create_f32(float32 value);
-DLL set* set_create_f64(float64 value);
+DLL set* set_create_f32(float32 value) NONNULLRETURN;
+DLL set* set_create_f64(float64 value) NONNULLRETURN;
 
 
 /**
@@ -98,20 +98,20 @@ DLL set* set_create_f64(float64 value);
         float32 : set_add_f32, float64 : set_add_f64 \
 ) (X, Y)
 
-DLL bool set_add_i8(NOT$NULL set* cur, int8_t value);
-DLL bool set_add_u8(NOT$NULL set* cur, uint8_t value);
+DLL bool set_add_i8(set* cur, int8_t value) NONNULL((1));
+DLL bool set_add_u8(set* cur, uint8_t value) NONNULL((1));
 
-DLL bool set_add_i16(NOT$NULL set* cur, int16_t value);
-DLL bool set_add_u16(NOT$NULL set* cur, uint16_t value);
+DLL bool set_add_i16(set* cur, int16_t value) NONNULL((1));
+DLL bool set_add_u16(set* cur, uint16_t value) NONNULL((1));
 
-DLL bool set_add_i32(NOT$NULL set* cur, int32_t value);
-DLL bool set_add_u32(NOT$NULL set* cur, uint32_t value);
+DLL bool set_add_i32(set* cur, int32_t value) NONNULL((1));
+DLL bool set_add_u32(set* cur, uint32_t value) NONNULL((1));
 
-DLL bool set_add_i64(NOT$NULL set* cur, int64_t value);
-DLL bool set_add_u64(NOT$NULL set* cur, uint64_t value);
+DLL bool set_add_i64(set* cur, int64_t value) NONNULL((1));
+DLL bool set_add_u64(set* cur, uint64_t value) NONNULL((1));
 
-DLL bool set_add_f32(NOT$NULL set* cur, float32 value);
-DLL bool set_add_f64(NOT$NULL set* cur, float64 value);
+DLL bool set_add_f32(set* cur, float32 value) NONNULL((1));
+DLL bool set_add_f64(set* cur, float64 value) NONNULL((1));
 
 
 /**
@@ -132,20 +132,20 @@ DLL bool set_add_f64(NOT$NULL set* cur, float64 value);
         float32* : set_min_f32, float64* : set_min_f64 \
 ) (X, Y)
 
-DLL bool set_min_i8(NOT$NULL set* cur, NOT$NULL int8_t* result);
-DLL bool set_min_u8(NOT$NULL set* cur, NOT$NULL uint8_t* result);
+DLL bool set_min_i8(set* restrict cur, int8_t* restrict result) NONNULL((1, 2));
+DLL bool set_min_u8(set* restrict cur, uint8_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_min_i16(NOT$NULL set* cur, NOT$NULL int16_t* result);
-DLL bool set_min_u16(NOT$NULL set* cur, NOT$NULL uint16_t* result);
+DLL bool set_min_i16(set* restrict cur, int16_t* restrict result) NONNULL((1, 2));
+DLL bool set_min_u16(set* restrict cur, uint16_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_min_i32(NOT$NULL set* cur, NOT$NULL int32_t* result);
-DLL bool set_min_u32(NOT$NULL set* cur, NOT$NULL uint32_t* result);
+DLL bool set_min_i32(set* restrict cur, int32_t* restrict result) NONNULL((1, 2));
+DLL bool set_min_u32(set* restrict cur, uint32_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_min_i64(NOT$NULL set* cur, NOT$NULL int64_t* result);
-DLL bool set_min_u64(NOT$NULL set* cur, NOT$NULL uint64_t* result);
+DLL bool set_min_i64(set* restrict cur, int64_t* restrict result) NONNULL((1, 2));
+DLL bool set_min_u64(set* restrict cur, uint64_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_min_f32(NOT$NULL set* cur, NOT$NULL float32* result);
-DLL bool set_min_f64(NOT$NULL set* cur, NOT$NULL float64* result);
+DLL bool set_min_f32(set* restrict cur, float32* restrict result) NONNULL((1, 2));
+DLL bool set_min_f64(set* restrict cur, float64* restrict result) NONNULL((1, 2));
 
 
 /**
@@ -166,20 +166,20 @@ DLL bool set_min_f64(NOT$NULL set* cur, NOT$NULL float64* result);
         float32* : set_max_f32, float64* : set_max_f64 \
 ) (X, Y)
 
-DLL bool set_max_i8(NOT$NULL set* cur, NOT$NULL int8_t* result);
-DLL bool set_max_u8(NOT$NULL set* cur, NOT$NULL uint8_t* result);
+DLL bool set_max_i8(set* restrict cur, int8_t* restrict result) NONNULL((1, 2));
+DLL bool set_max_u8(set* restrict cur, uint8_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_max_i16(NOT$NULL set* cur, NOT$NULL int16_t* result);
-DLL bool set_max_u16(NOT$NULL set* cur, NOT$NULL uint16_t* result);
+DLL bool set_max_i16(set* restrict cur, int16_t* restrict result) NONNULL((1, 2));
+DLL bool set_max_u16(set* restrict cur, uint16_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_max_i32(NOT$NULL set* cur, NOT$NULL int32_t* result);
-DLL bool set_max_u32(NOT$NULL set* cur, NOT$NULL uint32_t* result);
+DLL bool set_max_i32(set* restrict cur, int32_t* restrict result) NONNULL((1, 2));
+DLL bool set_max_u32(set* restrict cur, uint32_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_max_i64(NOT$NULL set* cur, NOT$NULL int64_t* result);
-DLL bool set_max_u64(NOT$NULL set* cur, NOT$NULL uint64_t* result);
+DLL bool set_max_i64(set* restrict cur, int64_t* restrict result) NONNULL((1, 2));
+DLL bool set_max_u64(set* restrict cur, uint64_t* restrict result) NONNULL((1, 2));
 
-DLL bool set_max_f32(NOT$NULL set* cur, NOT$NULL float32* result);
-DLL bool set_max_f64(NOT$NULL set* cur, NOT$NULL float64* result);
+DLL bool set_max_f32(set* restrict cur, float32* restrict result) NONNULL((1, 2));
+DLL bool set_max_f64(set* restrict cur, float64* restrict result) NONNULL((1, 2));
 
 
 /**
@@ -192,7 +192,7 @@ DLL bool set_max_f64(NOT$NULL set* cur, NOT$NULL float64* result);
  *  @param out resulting set
  *  @return true if union created, false otherwise
  */
-DLL bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
+DLL bool set_union(set* A, set* B, set* out) NONNULL((1, 2, 3));
 
 
 /**
@@ -205,7 +205,7 @@ DLL bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
  *  @param out resulting set
  *  @return true if intersection created, false otherwise
  */
-DLL bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
+DLL bool set_intersect(set* A, set* B, set* out) NONNULL((1, 2, 3));
 
 
 /**
@@ -218,7 +218,7 @@ DLL bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
  *  @param out resulting set
  *  @return true if difference created, false otherwise
  */
-DLL bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
+DLL bool set_difference(set* A, set* B, set* out) NONNULL((1, 2, 3));
 
 
 /**
@@ -231,7 +231,7 @@ DLL bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
  *  @param out resulting set
  *  @return true if symmetric difference created, false otherwise
  */
-DLL bool set_symdifference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
+DLL bool set_symdifference(set* A, set* B, set* out) NONNULL((1, 2, 3));
 
 
 /**
@@ -244,7 +244,7 @@ DLL bool set_symdifference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
  *  @param out resulting set
  *  @return true if cartesian products created, false otherwise
  */
-DLL bool set_cartesian(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
+DLL bool set_cartesian(set* A, set* B, set* out) NONNULL((1, 2, 3));
 
 
 /**
@@ -254,7 +254,7 @@ DLL bool set_cartesian(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out);
  *  @param out output power set
  *  @return true if power set created, false otherwise
  */
-DLL bool set_powerset(NOT$NULL set* A, NOT$NULL set** out);
+DLL bool set_powerset(set* A, set* * out) NONNULL((1, 2));
 
 
 /**
@@ -264,7 +264,7 @@ DLL bool set_powerset(NOT$NULL set* A, NOT$NULL set** out);
  *  @param B maybe superset
  *  @return true if A is subset, false otherwise
  */
-DLL bool set_subsetof(NOT$NULL set* A, NOT$NULL set* B);
+DLL bool set_subsetof(set* A, set* B) NONNULL((1, 2));
 
 
 #endif //LIBSET_LIBRARY_H

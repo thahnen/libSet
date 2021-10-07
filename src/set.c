@@ -10,6 +10,21 @@
                                     HELPER FUNCTIONS & MACROS
    ============================================================================================== */
 
+
+#if defined(__GNUC__)
+#   define likely(exp)      __builtin_expect((exp), 1)
+#   define unlikely(exp)    __builtin_expect((exp), 0)
+#else
+#   define likely(exp)      exp
+#   define unlikely(exp)    exp
+#endif
+
+
+// forward definition
+static set* deepCopy(set* input) NONNULL((1)) NONNULLRETURN;
+static bool elementOf(set* restrict other_set, void* restrict data, TYPE type) NONNULL((1, 2));
+
+
 /**
  *  Creates a deep copy of a set
  *
@@ -18,26 +33,24 @@
  *
  *  TODO: Add support for pair!
  */
-static set* deepCopy(NOT$NULL set* input) {
+static set* deepCopy(set* input) {
     set* output = set_empty();
     
     TYPE type = input->type;
-    if (type != NONE) {
+    if (likely(type != NONE)) {
         node_t* curNode = input->root;
         
         do {
-            switch(type) {
-                case INT8:    set_add_i8(output,  *(int8_t*)curNode->data);   break;
-                case UINT8:   set_add_u8(output,  *(uint8_t*)curNode->data);  break;
-                case INT16:   set_add_i16(output, *(int16_t*)curNode->data);  break;
-                case UINT16:  set_add_u16(output, *(uint16_t*)curNode->data); break;
-                case INT32:   set_add_i32(output, *(int32_t*)curNode->data);  break;
-                case UINT32:  set_add_u32(output, *(uint32_t*)curNode->data); break;
-                case INT64:   set_add_i64(output, *(int64_t*)curNode->data);  break;
-                case UINT64:  set_add_u64(output, *(uint64_t*)curNode->data); break;
-                case FLOAT32: set_add_f32(output, *(float32*)curNode->data);  break;
-                case FLOAT64: set_add_f64(output, *(float64*)curNode->data);  break;
-            }
+            if (type == INT8)               { set_add_i8(output,  *(int8_t*)curNode->data); }
+            else if (type == UINT8)         { set_add_u8(output,  *(uint8_t*)curNode->data); }
+            else if (type == INT16)         { set_add_i16(output, *(int16_t*)curNode->data); }
+            else if (type == UINT16)        { set_add_u16(output, *(uint16_t*)curNode->data); }
+            else if (likely(type == INT32)) { set_add_i32(output, *(int32_t*)curNode->data); }
+            else if (type == UINT32)        { set_add_u32(output, *(uint32_t*)curNode->data); }
+            else if (type == INT64)         { set_add_i64(output, *(int64_t*)curNode->data); }
+            else if (type == UINT64)        { set_add_u64(output, *(uint64_t*)curNode->data); }
+            else if (type == FLOAT32)       { set_add_f32(output, *(float32*)curNode->data); }
+            else if (type == FLOAT64)       { set_add_f64(output, *(float64*)curNode->data); }
             
             curNode = curNode->next;
         } while (curNode);
@@ -57,14 +70,14 @@ static set* deepCopy(NOT$NULL set* input) {
  *
  *  TODO: Add support for pair!
  */
-static bool elementOf(NOT$NULL set* other_set, NOT$NULL void* data, TYPE type) {
+static bool elementOf(set* other_set, void* data, TYPE type) {
     node_t* curNode = other_set->root;
 
     do {
-        if (type == INT8 || type == UINT8)                           { if ((*(int8_t*)curNode->data)  == (*(int8_t*)data))  return true; }
-        else if (type == INT16 || type == UINT16)                    { if ((*(int16_t*)curNode->data) == (*(int16_t*)data)) return true; }
-        else if (type == INT32 || type == UINT32 || type == FLOAT32) { if ((*(int32_t*)curNode->data) == (*(int32_t*)data)) return true; }
-        else if (type == INT64 || type == UINT64 || type == FLOAT64) { if ((*(int64_t*)curNode->data) == (*(int64_t*)data)) return true; }
+        if (type == INT8 || type == UINT8)                                      { if ((*(int8_t*)curNode->data)  == (*(int8_t*)data)) return true; }
+        else if (type == INT16 || type == UINT16)                               { if ((*(int16_t*)curNode->data) == (*(int16_t*)data)) return true; }
+        else if (likely(type == INT32 || type == UINT32 || type == FLOAT32))    { if ((*(int32_t*)curNode->data) == (*(int32_t*)data)) return true; }
+        else if (type == INT64 || type == UINT64 || type == FLOAT64)            { if ((*(int64_t*)curNode->data) == (*(int64_t*)data)) return true; }
         
         curNode = curNode->next;
     } while (curNode);
@@ -76,6 +89,11 @@ static bool elementOf(NOT$NULL set* other_set, NOT$NULL void* data, TYPE type) {
 /* ==============================================================================================
                                     ACTUAL IMPLEMENTATION
    ============================================================================================== */
+
+// forward definition
+static set* set_create_(void* NULLABLE value, TYPE type) NONNULLRETURN;
+static bool set_add_(set* restrict cur, void* restrict value, TYPE type) NONNULL((1, 2));
+
 
 /**
  *  Creates a new set with one value from given type
@@ -147,9 +165,9 @@ set_create_f(64)
  *
  *  TODO: Add support for pair!
  */
-static bool set_add_(NOT$NULL set* restrict cur, NOT$NULL void* restrict value, TYPE type) {
+static bool set_add_(set* cur, void* value, TYPE type) {
     // 1) type not allowed to be NONE
-    if (type == NONE) return false;
+    if (unlikely(type == NONE)) return false;
     
     // 2) if set is empty create new set of given type and return success
     if (cur->type == NONE) {
@@ -159,34 +177,16 @@ static bool set_add_(NOT$NULL set* restrict cur, NOT$NULL void* restrict value, 
     
     // 3) check if types of set and new value doesn't match
     //    TODO: Maybe handle in future using maximum of both types!
-    if (cur->type != type) return false;
+    if (unlikely(cur->type != type)) return false;
 
     // 4) check if value already in set
     node_t* curNode = cur->root;
     while (curNode->next != NULL) {
-        switch (type) {
-        case INT8:
-        case UINT8:
-            if (*(int8_t*)curNode->data == *(int8_t*)value)   return true;
-            break;
-        case INT16:
-        case UINT16:
-            if (*(int16_t*)curNode->data == *(int16_t*)value) return true;
-            break;
-        case INT32:
-        case UINT32:
-        case FLOAT32:
-            if (*(int32_t*)curNode->data == *(int32_t*)value) return true;
-            break;
-        case INT64:
-        case UINT64:
-        case FLOAT64:
-            if (*(int64_t*)curNode->data == *(int64_t*)value) return true;
-            break;
-        default:
-            // pair not implemented yet & NONE impossible
-            return false;
-        }
+        if (type == INT8 || type == UINT8)                                      { if (*(int8_t*)curNode->data  == *(int8_t*)value)  return true; }
+        else if (type == INT16 || type == UINT16)                               { if (*(int16_t*)curNode->data == *(int16_t*)value) return true; }
+        else if (likely(type == INT32 || type == UINT32 || type == FLOAT32))    { if (*(int32_t*)curNode->data == *(int32_t*)value) return true; }
+        else if (type == INT64 || type == UINT64 || type == FLOAT64)            { if (*(int64_t*)curNode->data == *(int64_t*)value) return true; }
+        else                                                                    { return false; }
 
         curNode = curNode->next;
     }
@@ -200,17 +200,17 @@ static bool set_add_(NOT$NULL set* restrict cur, NOT$NULL void* restrict value, 
 
 
 #define set_add_i(powerOfTwo) \
-    bool set_add_i##powerOfTwo (NOT$NULL set* cur, int##powerOfTwo##_t value) { \
+    bool set_add_i##powerOfTwo (set* cur, int##powerOfTwo##_t value) { \
         return set_add_(cur, (void*) &value, INT##powerOfTwo );\
     }
 
 #define set_add_u(powerOfTwo) \
-    bool set_add_u##powerOfTwo (NOT$NULL set* cur, uint##powerOfTwo##_t value) { \
+    bool set_add_u##powerOfTwo (set* cur, uint##powerOfTwo##_t value) { \
         return set_add_(cur, (void*) &value, UINT##powerOfTwo );\
     }
 
 #define set_add_f(powerOfTwo) \
-    bool set_add_f##powerOfTwo (NOT$NULL set* cur, float##powerOfTwo value) { \
+    bool set_add_f##powerOfTwo (set* cur, float##powerOfTwo value) { \
         return set_add_(cur, (void*) &value, FLOAT##powerOfTwo ); \
     }
 
@@ -232,8 +232,8 @@ set_add_f(64)
 
 
 #define set_min_i(powerOfTwo) \
-    bool set_min_i##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL int##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != INT##powerOfTwo || cur->size == 0) return false; \
+    bool set_min_i##powerOfTwo (set* cur, int##powerOfTwo##_t* result) { \
+        if (cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -245,8 +245,8 @@ set_add_f(64)
     }
 
 #define set_min_u(powerOfTwo) \
-    bool set_min_u##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL uint##powerOfTwo##_t* restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
+    bool set_min_u##powerOfTwo (set* cur, uint##powerOfTwo##_t* result) { \
+        if (cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -258,8 +258,8 @@ set_add_f(64)
     }
 
 #define set_min_f(powerOfTwo) \
-    bool set_min_f##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL float##powerOfTwo * restrict result) { \
-        if (cur == NULL || result == NULL || cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
+    bool set_min_f##powerOfTwo (set* cur, float##powerOfTwo * result) { \
+        if (cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
         while (cur_node != NULL) { \
@@ -288,7 +288,7 @@ set_min_f(64)
 
 
 #define set_max_i(powerOfTwo) \
-    bool set_max_i##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL int##powerOfTwo##_t* restrict result) { \
+    bool set_max_i##powerOfTwo (set* cur, int##powerOfTwo##_t* result) { \
         if (cur->type != INT##powerOfTwo || cur->size == 0) return false; \
         *result = *((int##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -300,7 +300,7 @@ set_min_f(64)
     }
 
 #define set_max_u(powerOfTwo) \
-    bool set_max_u##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL uint##powerOfTwo##_t* restrict result) { \
+    bool set_max_u##powerOfTwo (set* cur, uint##powerOfTwo##_t* result) { \
         if (cur->type != UINT##powerOfTwo || cur->size == 0) return false; \
         *result = *((uint##powerOfTwo##_t*) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -312,7 +312,7 @@ set_min_f(64)
     }
 
 #define set_max_f(powerOfTwo) \
-    bool set_max_f##powerOfTwo (NOT$NULL set* restrict cur, NOT$NULL float##powerOfTwo * restrict result) { \
+    bool set_max_f##powerOfTwo (set* cur, float##powerOfTwo * result) { \
         if (cur->type != FLOAT##powerOfTwo || cur->size == 0) return false; \
         *result = *((float##powerOfTwo *) cur->root->data); \
         node_t* cur_node = cur->root->next; \
@@ -342,9 +342,9 @@ set_max_f(64)
 
 
 /// Adds two sets together
-bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+bool set_union(set* A, set* B, set* out) {
     // Return empty set if A and B is empty and return B if A is empty and return A if B is empty
-    if (A->type == NONE && B->type == NONE) {
+    if (unlikely(A->type == NONE && B->type == NONE)) {
         *out = *set_empty();
         return true;
     } else if (A->type == NONE) {
@@ -360,7 +360,7 @@ bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
 
     // All other values!
     TYPE otype = max(A->type, B->type);
-    if (otype != NONE) {
+    if (likely(otype != NONE)) {
         // 1) Create new set
         *out = *set_empty();
         
@@ -401,9 +401,9 @@ bool set_union(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
 
 
 /// intersects to sets
-bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+bool set_intersect(set* A, set* B, set* out) {
     // Return empty set if A or B is empty set
-    if (A->type == NONE || B->type == NONE) {
+    if (unlikely(A->type == NONE || B->type == NONE)) {
         *out = *set_empty();
         return true;
     } else if (A->type == PAIR || B->type == PAIR) {
@@ -413,7 +413,7 @@ bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
     
     // Get maximum type
     TYPE otype = max(A->type, B->type);
-    if (otype != NONE) {
+    if (likely(otype != NONE)) {
         // 1) create new set
         *out = *set_empty();
         
@@ -456,12 +456,12 @@ bool set_intersect(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
 
 
 /// difference of two sets
-bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+bool set_difference(set* A, set* B, set* out) {
     // Return empty set if A is empty and return A if B is empty
     if (A->type == NONE) {
         *out = *set_empty();
         return true;
-    } else if (B->type == NONE) {
+    } else if (unlikely(B->type == NONE)) {
         *out = *deepCopy(A);
         return true;
     } else if (A->type == PAIR || B->type == PAIR) {
@@ -471,7 +471,7 @@ bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
     
     // Get maximum type
     TYPE otype = max(A->type, B->type);
-    if (otype != NONE) {
+    if (likely(otype != NONE)) {
         // 1) create new set
         *out = *set_empty();
         
@@ -504,12 +504,12 @@ bool set_difference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
 
 
 /// symmetric difference of two sets
-bool set_symdifference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
+bool set_symdifference(set* A, set* B, set* out) {
     // Return B if A is empty and return A if B is empty
-    if (A->type == NONE) {
+    if (unlikely(A->type == NONE)) {
         *out = *deepCopy(B);
         return true;
-    } else if (B->type == NONE) {
+    } else if (unlikely(B->type == NONE)) {
         *out = *deepCopy(A);
         return true;
     } else if (A->type == PAIR || B->type == PAIR) {
@@ -518,7 +518,7 @@ bool set_symdifference(NOT$NULL set* A, NOT$NULL set* B, NOT$NULL set* out) {
     
     // Get maximum type
     TYPE otype = max(A->type, B->type);
-    if (otype != NONE) {
+    if (likely(otype != NONE)) {
         // 1) create new set
         *out = *set_empty();
         
